@@ -99,6 +99,24 @@ Based on your project (REST API with JSON), here are my recommendations:
    - Best for: High-performance APIs
 ```
 
+## Step 4.5: Document Tech Stack Choice
+
+After the user selects a tech stack, **update SPEC.md** to record the choice:
+
+1. Add or update a "Tech Stack" section in SPEC.md
+2. Include:
+   - Language and framework
+   - Key dependencies
+   - Reasoning for the choice (brief)
+
+Example:
+```markdown
+## Tech Stack
+
+- **Framework**: Python + FastAPI
+- **Reasoning**: Fast development, automatic OpenAPI docs, type validation
+```
+
 ## Step 5: Create Minimal Project
 
 **CRITICAL: Keep it minimal. The project must:**
