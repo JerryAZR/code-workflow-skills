@@ -1,14 +1,16 @@
 ---
 name: plan-milestones
-description: "Plans implementation milestones from architecture by ordering features from basic skeleton to highest priority. Use when architecture is defined and needs to be broken down into manageable implementation phases."
-argument-hint: "[architecture summary or milestone focus]"
+description: "Plans implementation milestones by ordering features from basic skeleton to highest priority. Use when a project needs to be broken down into manageable implementation phases."
+argument-hint: "[milestone focus or priority]"
 ---
 
 # Milestone Planning
 
 ## Overview
 
-Transform the defined architecture into ordered implementation milestones. Start with the basic system skeleton, then progressively add features from highest to lowest priority. Limit each milestone scope to ensure manageable, testable increments.
+Transform a project specification into ordered implementation milestones. Start with the basic system skeleton, then progressively add features from highest to lowest priority. Limit each milestone scope to ensure manageable, testable increments.
+
+This skill is architecture-agnostic—it plans in terms of user-facing features, not internal architecture nodes.
 
 **User's Intent:** $ARGUMENTS
 
@@ -16,72 +18,54 @@ Transform the defined architecture into ordered implementation milestones. Start
 
 ## Prerequisites
 
-Before invoking this skill, ensure:
-
-1. **Architecture exists** - `arch/ARCH_SUMMARY.md` must exist with the node hierarchy (invoke `root-architect`)
-2. **Node documentation exists** - All first-level nodes have documentation files
-3. **Tech stack is chosen** - The project must have a documented tech stack in SPEC.md (invoke `bootstrap`)
-
-## Hard Gates
-
-<HARD-GATE>
-Do NOT proceed if architecture is not defined. Invoke `root-architect` first.
-</HARD-GATE>
-
-<HARD-GATE>
-Do NOT create milestones for features not in the architecture.
-</HARD-GATE>
+None required. This skill works from the specification.
 
 ## Workflow
 
 Follow this process in order:
 
-1. **Analyze architecture** - Review ARCH_SUMMARY.md and node documents
-2. **Identify feature layers** - Separate core skeleton from enhancement features
+1. **Analyze specification** - Review SPEC.md to understand features
+2. **Enumerate features** - List all features from the spec
 3. **Clarify priorities** - Ask user if feature priorities are unclear
-4. **Define milestone scope** - Limit each milestone to 2-4 nodes maximum
+4. **Define milestone scope** - Limit each milestone to 3-5 features maximum
 5. **Order milestones** - Skeleton first, then by priority descending
-6. **Document milestone plan** - Create `arch/MILESTONES.md`
+6. **Document milestone plan** - Create `MILESTONES.md` in project root
 
-## Step 1: Analyze Architecture
+## Step 1: Analyze Specification
 
-Read the architecture to understand the full scope:
+Read the specification to understand the full scope:
 
-1. Read `arch/ARCH_SUMMARY.md` to see all nodes
-2. Read each node's documentation to understand dependencies
-3. Identify which nodes are essential (skeleton) vs optional (enhancements)
+1. Read `SPEC.md` to identify all features and requirements
+2. Note any explicit priorities mentioned in the spec
+3. Identify dependencies between features
 
-## Step 2: Identify Feature Layers
+## Step 2: Enumerate Features
 
-Categorize nodes into layers:
+Extract all features from the specification:
 
-**Layer 1 - Core Skeleton (always first):**
-- Essential infrastructure nodes
-- Basic data flow paths
-- Minimal viable interfaces
+**Create a feature list:**
+- Core functionality (must work for system to be useful)
+- User-facing features (what users can do)
+- Integration points (external services, APIs)
+- Non-functional requirements (performance, security)
 
-**Layer 2 - High Priority Features:**
-- Critical user-facing functionality
-- Core business logic
-- Essential integrations
-
-**Layer 3 - Lower Priority Features:**
-- Nice-to-have functionality
-- Advanced features
-- Non-critical integrations
+**Do not:**
+- Map features to architecture nodes
+- Consider implementation details
+- Worry about technical dependencies yet
 
 ## Step 3: Clarify Priorities
 
-If the architecture doesn't clearly indicate priority, ask the user:
+If priorities are unclear, ask the user:
 
 ```
-I need to clarify the priority of some features:
+I need to clarify feature priorities:
 
 1. Which features are essential for the first usable release?
 2. Which features can wait until later versions?
-3. Are there any features that depend on others being complete first?
+3. Are there features that depend on others being complete first?
 
-Please identify:
+Please categorize:
 - Must-have (MVP): [list features]
 - Should-have (v1.0): [list features]
 - Could-have (future): [list features]
@@ -92,14 +76,14 @@ Please identify:
 Create milestones with limited scope:
 
 **Each milestone should include:**
-- 2-4 related nodes maximum
-- Clear dependency chain (no blocked nodes)
+- 3-5 related features maximum
+- Cohesive theme (all features serve a common goal)
 - Deliverable at the end (runnable, testable)
 
 **Guidelines:**
 - First milestone = skeleton (minimal working system)
 - Subsequent milestones = progressive enhancement
-- Avoid milestones > 4 nodes (too large to manage)
+- Avoid milestones > 5 features (too large to manage)
 
 ## Step 5: Order Milestones
 
@@ -110,7 +94,7 @@ Order by:
 
 ## Step 6: Document Milestone Plan
 
-Create `arch/MILESTONES.md`:
+Create `MILESTONES.md` in the project root:
 
 ```markdown
 # Milestone Plan
@@ -119,36 +103,40 @@ Create `arch/MILESTONES.md`:
 **Status:** planned
 **Target:** Minimal working system
 
-### Nodes
-- NodeA (infrastructure)
-- NodeB (core interface)
+### Features
+- Feature A: Basic input handling
+- Feature B: Core processing
+- Feature C: Simple output
 
 ### Scope
-- Basic data flow from input to output
-- Core interfaces defined
+- Minimal viable functionality
 - No advanced features
+- Basic happy path only
 
 ### Success Criteria
 - [ ] System compiles and runs
-- [ ] Basic happy path works
-- [ ] Interfaces documented
+- [ ] Core flow works end-to-end
+- [ ] Basic error handling
 
 ---
 
 ## Milestone 2: Core Features
 **Status:** planned
-**Target:** Primary functionality
+**Target:** Primary user functionality
 
-### Nodes
-- NodeC (business logic)
-- NodeD (user features)
+### Features
+- Feature D: User authentication
+- Feature E: Main user interface
+- Feature F: Data persistence
 
 ### Scope
 - Primary use cases implemented
 - Error handling for common cases
+- Basic validation
 
 ### Success Criteria
 - [ ] Core features functional
+- [ ] Users can accomplish main tasks
 - [ ] Basic error handling works
 
 ---
@@ -157,23 +145,27 @@ Create `arch/MILESTONES.md`:
 **Status:** planned
 **Target:** Additional capabilities
 
-### Nodes
-- NodeE (advanced features)
-- NodeF (nice-to-have)
+### Features
+- Feature G: Advanced search
+- Feature H: User preferences
+- Feature I: Performance optimization
 
 ### Scope
 - Advanced functionality
 - Performance optimization
+- Enhanced user experience
 
 ### Success Criteria
 - [ ] Enhanced features work
 - [ ] Performance targets met
+- [ ] User experience improved
 ```
 
 ## Constraints
 
 ### What This Skill Does NOT Do
 
+- Reference architecture nodes (architecture-agnostic)
 - Define detailed implementation order (that's node-build's job)
 - Specify exact timelines or dates
 - Create test plans (defer to node-prep)
@@ -184,21 +176,22 @@ Create `arch/MILESTONES.md`:
 - Refine milestone scope based on implementation experience
 - Adjust ordering based on discovered dependencies
 - Add new milestones as requirements evolve
+- Map milestones to architecture nodes later (via node-prep/node-build)
 
 ## Success Criteria
 
-- [ ] Architecture analyzed completely
-- [ ] Features categorized into layers
+- [ ] Specification analyzed completely
+- [ ] All features enumerated
 - [ ] Priorities clarified with user
-- [ ] Each milestone has 2-4 nodes
+- [ ] Each milestone has 3-5 features
 - [ ] Milestone 1 is the skeleton
 - [ ] Ordering respects dependencies
-- [ ] MILESTONES.md created
+- [ ] MILESTONES.md created in project root
 
 ## Next Steps
 
 After milestone planning:
 
-- **Implement Milestone 1** - Use `node-prep` then `node-build` for each node
+- **Implement Milestone 1** - Use `node-prep` then `node-build` for each feature
 - **Refine if needed** - Adjust scope based on implementation experience
 - **Parallel tracks** - Multiple milestones can be prepared in parallel
