@@ -8,7 +8,7 @@ argument-hint: "[project description or spec file]"
 
 ## Overview
 
-Produce the system's initial shallow architectural topology by decomposing the clarified specification into a root node and a bounded set of first-level components. Write `ARCH_SUMMARY.md` to reflect the tree structure using the predefined header template, and generate corresponding node documentation files.
+Produce the system's initial shallow architectural topology by decomposing the clarified specification into a root node and a bounded set of first-level components. Write `arch/ARCH_SUMMARY.md` to reflect the tree structure using the predefined header template, and generate corresponding node documentation files.
 
 **User's Intent:** $ARGUMENTS
 
@@ -24,7 +24,7 @@ Follow this process in order:
 4. **Decompose to first level** - Identify 2-6 cohesive first-level components
 5. **Verify coverage** - Ensure all requirements map to nodes
 5.5. **Clarify dataflow** - Annotate inputs, outputs, and side-effects per node
-6. **Write ARCH_SUMMARY.md** - Create summary using template
+6. **Write ARCH_SUMMARY.md** - Create arch/ARCH_SUMMARY.md using template
 7. **Generate node docs** - Create documentation for each node
 
 ## Step 1: Verify Prerequisites
@@ -109,7 +109,7 @@ For each node, explicitly annotate inputs, outputs, and side-effects:
 
 ## Step 6: Write ARCH_SUMMARY.md
 
-Create `ARCH_SUMMARY.md` in the project root using the template:
+Create `arch/ARCH_SUMMARY.md` using the template:
 
 ```markdown
 ---
