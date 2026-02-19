@@ -1,10 +1,21 @@
 ---
 name: node-build
-description: "Implements architecture nodes by moving from red to green. Use when a node has structural skeleton and tests defined, and is ready for full implementation with minimal child stubs."
+description: "[DEPRECATED] Top-down TDD node implementation. Use bottom-up implementation instead - see skill workflow documentation."
 argument-hint: "[node-name or node-path]"
 ---
 
-# Node Build
+# Node Build (DEPRECATED)
+
+## ⚠️ DEPRECATED
+
+**This skill is deprecated because it assumes a top-down implementation flow which does not work well with LLMs.**
+
+The top-down approach (root → children) creates problems:
+- LLMs lose context when implementing deep trees
+- Child nodes can't be properly tested until parents exist
+- Forward references are fragile
+
+**Use bottom-up implementation instead:** Start with leaf nodes and work upward.
 
 ## Overview
 

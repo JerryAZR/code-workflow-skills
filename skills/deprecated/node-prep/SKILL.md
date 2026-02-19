@@ -1,10 +1,21 @@
 ---
 name: node-prep
-description: "Prepares architecture nodes for implementation by writing unit tests and interface assertions. Use when an architecture node is ready to be implemented and needs test contracts defined."
+description: "[DEPRECATED] Top-down TDD node preparation. Use bottom-up implementation instead - see skill workflow documentation."
 argument-hint: "[node-name or node-path]"
 ---
 
-# Node Preparation
+# Node Preparation (DEPRECATED)
+
+## ⚠️ DEPRECATED
+
+**This skill is deprecated because it assumes a top-down implementation flow which does not work well with LLMs.**
+
+The top-down approach (root → children) creates problems:
+- LLMs lose context when implementing deep trees
+- Child nodes can't be properly tested until parents exist
+- Forward references are fragile
+
+**Use bottom-up implementation instead:** Start with leaf nodes and work upward.
 
 ## Overview
 
