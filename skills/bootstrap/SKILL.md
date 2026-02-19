@@ -202,3 +202,21 @@ Report success:
 - **Minimal to start** - Don't add complexity until needed
 - **Working baseline** - Always verify the project compiles/runs before concluding
 - **Clear recommendations** - Help users understand trade-offs
+
+## Next Steps
+
+After bootstrapping the project:
+
+### On Success
+- The project compiles and runs without errors
+- **Action:** Invoke the `root-architect` skill to define the system architecture
+
+### On Failure
+- **Logic bugs or syntax errors:**
+  - Fix the issue directly in the created project files
+  - Re-run verification until the project works
+  - Do not proceed to architecture until the baseline is functional
+- **Environment issues (missing tools/packages):**
+  - Provide clear guidance to the user on what's needed
+  - Example: "Please install Node.js 18+ from https://nodejs.org" or "Run `pip install -r requirements.txt`"
+  - Ask the user to install the required tools and re-run the skill
