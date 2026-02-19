@@ -42,8 +42,9 @@ If no node-name argument provided:
 If node-name provided, verify it exists in ARCH_SUMMARY.md with "pending" status.
 
 **Determining node path:** The node's documentation path is derived from its heading level in ARCH_SUMMARY.md:
-- Root node (##) → `arch/nodes/<RootNode>/<RootNode>.md`
+- Root node (##) → `arch/nodes/<RootNode>.md`
 - Level 2 child (###) → `arch/nodes/<ParentNode>/<ChildNode>.md`
+- Level 3 child (####) → `arch/nodes/<ParentNode>/<ChildNode>/<GrandChild>.md`
 - And so on...
 
 ---
@@ -134,7 +135,7 @@ Add child nodes under the parent node heading in `arch/ARCH_SUMMARY.md`. **Child
 ## <ParentNode>
 
 Status: decomposed | atomic
-Doc: arch/nodes/<ParentNode>/<ParentNode>.md
+Doc: arch/nodes/<ParentNode>.md
 
 ... existing content ...
 
