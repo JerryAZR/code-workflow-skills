@@ -224,4 +224,3 @@ Add other sections only if clearly needed — details will be refined during imp
 
 - **To continue decomposition**: Re-run `node-decompose` with no argument to automatically decompose the next pending node
 - **To decompose specific node**: Run `node-decompose <node-name>` for a particular node
-- **To implement a node**: Use node-prep and node-build
