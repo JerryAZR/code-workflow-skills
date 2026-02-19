@@ -4,8 +4,6 @@ description: "Creates initial shallow architectural topology by decomposing spec
 argument-hint: "[project description or spec file]"
 ---
 
-<!-- If argument is provided, treat it as user input. Try to satisfy the request or clearly argue against it with alternatives. If user has settled on a decision, respect it and make it work. -->
-
 # Root-Level Architect
 
 ## Overview
@@ -13,15 +11,6 @@ argument-hint: "[project description or spec file]"
 Produce the system's initial shallow architectural topology by decomposing the clarified specification into a root node and a bounded set of first-level components. Write `ARCH_SUMMARY.md` to reflect the tree structure using the predefined header template, and generate corresponding node documentation files.
 
 **User's Intent:** $ARGUMENTS
-
-## Prerequisites
-
-Before using this skill, verify:
-1. **Specification is complete** - SPEC.md exists with clear scope and tech stack
-2. **Tech stack documented** - Tech Stack section exists in SPEC.md
-3. **No critical ambiguities** - All high-impact questions resolved
-
-If prerequisites are not met, invoke the `bootstrap` skill first.
 
 ## Workflow
 
@@ -38,9 +27,9 @@ Follow this process in order:
 ## Step 1: Verify Prerequisites
 
 Check that the project has:
-1. A complete `SPEC.md` with clear scope <!-- generated from "specify" -->
-2. A documented Tech Stack section in SPEC.md <!-- from "bootstrap" -->
-3. No `[NEEDS CLARIFICATION]` markers <!-- needs "clarify" -->
+1. A complete `SPEC.md` with clear scope (generated from the `specify` skill)
+2. A documented Tech Stack section in SPEC.md (from the `bootstrap` skill)
+3. No `[NEEDS CLARIFICATION]` markers (resolved via the `clarify` skill)
 
 If any prerequisite is missing, stop and invoke the `bootstrap` skill.
 
