@@ -90,9 +90,9 @@ Mark node as **decomposed** if it needs child nodes to fulfill its responsibilit
 ### Atomic Nodes
 
 When marking a node as atomic:
-1. Update status to "atomic" in ARCH_SUMMARY.md
+1. Update status to "atomic" in ARCH_SUMMARY.md (this is a leaf node - it has no children)
 2. Polish the node doc with detailed responsibility and contracts
-3. Do NOT create child nodes — they remain pending for future decomposition if needed
+3. No child nodes are created - this node is done being decomposed
 
 ---
 
