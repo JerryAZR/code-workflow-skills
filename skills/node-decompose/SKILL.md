@@ -1,6 +1,6 @@
 ---
 name: node-decompose
-description: "Decomposes architecture nodes into child components. Use for expanding any non-leaf node."
+description: "Decomposes architecture nodes into child components. Use for expanding any pending non-leaf node. If no node specified, auto-detects first pending node from ARCH_SUMMARY.md."
 argument-hint: "[node-name]"
 ---
 
@@ -12,25 +12,38 @@ Perform top-down structural decomposition of an architecture node into well-defi
 
 **User's Intent:** $ARGUMENTS
 
+If no node-name provided, find the first "pending" node in `arch/ARCH_SUMMARY.md` and decompose that.
+
 ## Prerequisites
 
-- The node must exist in ARCH_SUMMARY.md
+- The node must exist in ARCH_SUMMARY.md with "pending" status
 - For root decomposition, run `arch-init` first if ARCH_SUMMARY.md does not exist
 
 ## Workflow
 
 Follow this process in order:
 
-1. **Read Parent Node** - Get responsibility and dataflow from parent node doc
-2. **Clarify Node Responsibility** - Confirm what this node owns
-3. **Define Public Contract** - Input/output interfaces
-4. **Decompose into Children** - Identify 2-6 cohesive child nodes
-5. **Define Child Contracts** - Each child's responsibility and interface
-6. **Update Documentation** - Update ARCH_SUMMARY.md and create node docs
+1. **Resolve Target Node** - If no argument, find first "pending" node in ARCH_SUMMARY.md
+2. **Read Parent Node** - Get responsibility and dataflow from parent node doc
+3. **Clarify Node Responsibility** - Confirm what this node owns
+4. **Decide: Decompose or Atomic** - Determine if node should be decomposed or marked atomic
+5. **Define Child Contracts** - Each child's responsibility and interface (if decomposing)
+6. **Update Documentation** - Update ARCH_SUMMARY.md, mark current node, create child docs
 
 ---
 
-## Step 1: Read Parent Node
+## Step 1: Resolve Target Node
+
+If no node-name argument provided:
+1. Read `arch/ARCH_SUMMARY.md`
+2. Find the first node with "Status: pending"
+3. Use that node as the target for decomposition
+
+If node-name provided, verify it exists in ARCH_SUMMARY.md with "pending" status.
+
+---
+
+## Step 2: Read Parent Node
 
 Find the node in ARCH_SUMMARY.md and read its documentation at `arch/nodes/<NodeName>.md`:
 - Responsibility: What this node owns
@@ -38,7 +51,7 @@ Find the node in ARCH_SUMMARY.md and read its documentation at `arch/nodes/<Node
 
 ---
 
-## Step 2: Clarify Node Responsibility
+## Step 3: Clarify Node Responsibility
 
 For the node being decomposed:
 
@@ -48,56 +61,32 @@ For the node being decomposed:
 
 ---
 
-## Step 3: Define Public Contract
+## Step 4: Decide - Decompose or Atomic
 
-### Input Interface
+### Status Options
 
-- What data/events does this node consume?
-- User interactions, API requests, file reads, database queries
+| Status | Meaning |
+|--------|--------|
+| pending | Node awaiting decomposition |
+| decomposed | Has child nodes defined |
+| atomic | Single-focus responsibility, should not decompose further |
+| implemented | Logic ready, tests passed |
 
-### Output Interface
+### Decision Criteria
 
-- What does this node produce?
-- Visual renders, API responses, file writes, data transformations
+Mark node as **atomic** if it has a clear, single-focus responsibility that makes no sense to decompose further:
+- The responsibility is already well-scoped and cohesive
+- Further decomposition would add unnecessary complexity
+- The node represents a concrete, implementable unit
 
-### Failure Semantics
+Mark node as **decomposed** if it needs child nodes to fulfill its responsibility.
 
-- How does this node handle errors?
-- What invariants must hold?
+### Atomic Nodes
 
----
-
-## Step 4: Decompose into Children
-
-Identify 2-6 child nodes that together fulfill the parent node's responsibility:
-- Each child owns a portion of what the parent needs to provide
-- Children are cohesive (related concerns grouped together)
-- Children are orthogonal (minimal overlap in concerns)
-- Combined, they cover all parent responsibilities
-
-### Common First-Level Patterns
-
-| System Type | Common Children |
-|-------------|-----------------|
-| Web Application | UI Layer, API Layer, Data Layer |
-| CLI Tool | CLI Parser, Core Engine, Output Formatter |
-| Microservice | API Handler, Business Logic, Data Access |
-| Library | Public API, Internal Core |
-| Gateway | Routing, Protocol Translation, Auth |
-
-### Structural Dependencies vs Data Movement
-
-**Structural dependencies** (who owns or controls state) must form a tree (acyclic):
-- Parent nodes own or control resources that child nodes use
-- Example: API Layer depends on Business Logic, which depends on Data Access
-
-**Data movement** (inputs/outputs of a node) is separate and often bidirectional:
-- UI receives user events (input) and renders visual updates (output)
-- Functions receive arguments (input) and return values (output)
-- Event handlers receive events (input) and emit responses (output)
-- **Bidirectional flows are normal and do not indicate circular dependencies**
-
-Do not force nodes into an acyclic structure to accommodate normal bidirectional data flows.
+When marking a node as atomic:
+1. Update status to "atomic" in ARCH_SUMMARY.md
+2. Polish the node doc with detailed responsibility and contracts
+3. Do NOT create child nodes — they remain pending for future decomposition if needed
 
 ---
 
@@ -117,12 +106,30 @@ The parent node defines what each child must provide. For each child node, defin
 
 ## Step 6: Update Documentation
 
-### Update ARCH_SUMMARY.md
+### 1. Update Current Node Status
+
+In `arch/ARCH_SUMMARY.md`, change the target node's status:
+
+- If decomposed into children: Change from "pending" to "decomposed"
+- If atomic: Change from "pending" to "atomic"
+
+### 2. Update Current Node Doc
+
+Polish the current node's documentation at `arch/nodes/<NodeName>.md`:
+- Add more detail to responsibility (best-effort, don't overthink)
+- Clarify input/output interfaces
+- Add any additional sections that feel necessary
+- The details will be ironed out during implementation
+
+### 3. Add Child Nodes to ARCH_SUMMARY.md
 
 Add child nodes under the parent node heading in `arch/ARCH_SUMMARY.md`:
 
 ```markdown
 ## <ParentNode>
+
+Status: decomposed | atomic
+Doc: arch/nodes/<ParentNode>.md
 
 ... existing content ...
 
@@ -152,37 +159,35 @@ Responsibility:
 ---
 ```
 
-### Create Node Documentation
+**Note:** Child nodes are always "pending" — never create a child directly in "atomic" state.
 
-For each node, create documentation at `arch/nodes/<NodeName>.md`:
+### 4. Create Child Node Docs
+
+For each child node, create minimal documentation at `arch/nodes/<ChildNodeName>.md` with only:
 
 ```markdown
-# <NodeName>
+# <ChildNodeName>
 
 ## Status
 
-pending | decomposed | implemented
+pending
 
 ## Responsibility
 
-<What this node owns and is accountable for.>
+<What this child owns.>
 
-## Dataflow
+## Contract
 
-### Inputs
+### Input
 
-- <What this node consumes>
+<What the parent provides.>
 
-### Outputs
+### Output
 
-- <What this node produces>
-
-### Side-effects
-
-- <External state changes, if any>
+<What the child returns to parent.>
 ```
 
-The decomposer decides what additional sections (APIs, Events, Configuration, Dependencies, Invariants) are needed based on node type and responsibility.
+Add other sections only if clearly needed — details will be refined during implementation.
 
 ---
 
@@ -200,16 +205,17 @@ The decomposer decides what additional sections (APIs, Events, Configuration, De
 
 ## Success Criteria
 
+- [ ] Target node resolved (from argument or first pending in ARCH_SUMMARY.md)
 - [ ] Node responsibility is clear and bounded
-- [ ] Children are cohesive and orthogonal (2-6 children)
-- [ ] All parent responsibilities map to children
-- [ ] Structural dependencies form a tree
-- [ ] Bidirectional data flows documented (inputs/outputs/side-effects)
-- [ ] ARCH_SUMMARY.md updated with child nodes
-- [ ] Each child has documentation file
+- [ ] Decision made: decomposed or atomic
+- [ ] If decomposed: Children are cohesive and orthogonal (2-6 children)
+- [ ] Current node status updated to "decomposed" or "atomic"
+- [ ] Current node doc polished with more detail (best-effort)
+- [ ] Child nodes added to ARCH_SUMMARY.md with "pending" status
+- [ ] Each child has minimal documentation (responsibility + contract)
 
 ## Next Steps
 
-After decomposition:
-- If the decomposition needs refinement - Re-run `node-decompose`
-- If ready to implement a node - Use node-prep and node-build
+- **To continue decomposition**: Re-run `node-decompose` with no argument to automatically decompose the next pending node
+- **To decompose specific node**: Run `node-decompose <node-name>` for a particular node
+- **To implement a node**: Use node-prep and node-build
