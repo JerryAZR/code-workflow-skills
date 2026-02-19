@@ -20,8 +20,9 @@ Follow this process in order:
 2. **Understand the project** - Read SPEC.md and README.md to understand what the project should do
 3. **Evaluate user tech stack preference** - If user provided a tech stack argument, evaluate it
 4. **Propose tech stack options** - Present 2-3 options with pros/cons and recommendations
-5. **Create minimal project** - Initialize a hello-world level project that compiles/runs
-6. **Verify it works** - Ensure the project runs without errors
+5. **Document tech stack choice** - Record the selected stack in SPEC.md
+6. **Create minimal project** - Initialize a hello-world level project that compiles/runs
+7. **Verify it works** - Ensure the project runs without errors
 
 ## Step 1: Check Specification
 
@@ -99,9 +100,9 @@ Based on your project (REST API with JSON), here are my recommendations:
    - Best for: High-performance APIs
 ```
 
-## Step 4.5: Document Tech Stack Choice
+## Step 5: Document Tech Stack Choice
 
-After the user selects a tech stack, **update SPEC.md** to record the choice:
+After the user selects a tech stack from Step 4, **update SPEC.md** to record the choice:
 
 1. Add or update a "Tech Stack" section in SPEC.md
 2. Include:
@@ -117,7 +118,7 @@ Example:
 - **Reasoning**: Fast development, automatic OpenAPI docs, type validation
 ```
 
-## Step 5: Create Minimal Project
+## Step 6: Create Minimal Project
 
 **CRITICAL: Keep it minimal. The project must:**
 - Be hello-world level (print "Hello, World!" or equivalent)
@@ -179,7 +180,7 @@ export default function App() {
 }
 ```
 
-## Step 6: Verify It Works
+## Step 7: Verify It Works
 
 After creating the project:
 
