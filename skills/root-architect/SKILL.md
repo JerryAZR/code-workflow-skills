@@ -1,8 +1,13 @@
 ---
 name: root-architect
-description: "Creates initial shallow architectural topology by decomposing specifications into root node and first-level components. Use when a project has a clear specification and needs its system architecture defined."
-argument-hint: "[project description or spec file]"
+description: "[DEPRECATED] Use arch-init + node-decompose instead"
 ---
+
+> **⚠️ This skill is deprecated.** Use the following workflow instead:
+> - Run `arch-init` to initialize architecture documentation
+> - Run `node-decompose` to expand nodes (root automatically detected if pending)
+>
+> The new workflow provides incremental decomposition with atomic/pending/decomposed status tracking.
 
 # Root-Level Architect
 
