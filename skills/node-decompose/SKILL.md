@@ -41,11 +41,16 @@ If no node-name argument provided:
 
 If node-name provided, verify it exists in ARCH_SUMMARY.md with "pending" status.
 
+**Determining node path:** The node's documentation path is derived from its heading level in ARCH_SUMMARY.md:
+- Root node (##) → `arch/nodes/<RootNode>/<RootNode>.md`
+- Level 2 child (###) → `arch/nodes/<ParentNode>/<ChildNode>.md`
+- And so on...
+
 ---
 
 ## Step 2: Read Parent Node
 
-Find the node in ARCH_SUMMARY.md and read its documentation at `arch/nodes/<NodeName>.md`:
+Find the node in ARCH_SUMMARY.md and read its documentation at `arch/nodes/<NodePath>/<NodeName>.md`:
 - Responsibility: What this node owns
 - Dataflow: Inputs, outputs, side-effects
 
@@ -115,7 +120,7 @@ In `arch/ARCH_SUMMARY.md`, change the target node's status:
 
 ### 2. Update Current Node Doc
 
-Polish the current node's documentation at `arch/nodes/<NodeName>.md`:
+Polish the current node's documentation at `arch/nodes/<NodePath>/<NodeName>.md`:
 - Add more detail to responsibility (best-effort, don't overthink)
 - Clarify input/output interfaces
 - Add any additional sections that feel necessary
@@ -123,20 +128,20 @@ Polish the current node's documentation at `arch/nodes/<NodeName>.md`:
 
 ### 3. Add Child Nodes to ARCH_SUMMARY.md
 
-Add child nodes under the parent node heading in `arch/ARCH_SUMMARY.md`:
+Add child nodes under the parent node heading in `arch/ARCH_SUMMARY.md`. **Children must be one heading level deeper than parent** (if parent is ##, children are ###):
 
 ```markdown
 ## <ParentNode>
 
 Status: decomposed | atomic
-Doc: arch/nodes/<ParentNode>.md
+Doc: arch/nodes/<ParentNode>/<ParentNode>.md
 
 ... existing content ...
 
-## <ChildNode1>
+### <ChildNode1>
 
 Status: pending
-Doc: arch/nodes/<ChildNode1>.md
+Doc: arch/nodes/<ParentNode>/<ChildNode1>.md
 
 Responsibility:
 <1-3 sentence summary of this child's purpose.>
@@ -148,10 +153,10 @@ Dataflow:
 
 ---
 
-## <ChildNode2>
+### <ChildNode2>
 
 Status: pending
-Doc: arch/nodes/<ChildNode2>.md
+Doc: arch/nodes/<ParentNode>/<ChildNode2>.md
 
 Responsibility:
 <Short description.>
@@ -163,7 +168,7 @@ Responsibility:
 
 ### 4. Create Child Node Docs
 
-For each child node, create minimal documentation at `arch/nodes/<ChildNodeName>.md` with only:
+Create a subdirectory `arch/nodes/<ParentNode>/` and add child node docs there:
 
 ```markdown
 # <ChildNodeName>
