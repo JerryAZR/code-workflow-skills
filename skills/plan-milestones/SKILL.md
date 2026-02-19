@@ -98,11 +98,13 @@ Order by:
 
 Create `MILESTONES.md` in the project root:
 
+**Important:** Mark the first milestone as "in-progress" to signal that work can begin immediately:
+
 ```markdown
 # Milestone Plan
 
 ## Milestone 1: Core Skeleton
-**Status:** planned
+**Status:** in-progress
 **Target:** Minimal working system
 
 ### Features
@@ -178,7 +180,7 @@ Create `MILESTONES.md` in the project root:
 - Refine milestone scope based on implementation experience
 - Adjust ordering based on discovered dependencies
 - Add new milestones as requirements evolve
-- Map milestones to architecture nodes later (via node-prep/node-build)
+- Map milestones to architecture nodes (via node-dispatch workflow)
 
 ## Success Criteria
 
@@ -194,6 +196,7 @@ Create `MILESTONES.md` in the project root:
 
 After milestone planning:
 
-- **Implement Milestone 1** - Use `node-prep` then `node-build` for each feature
+- **Initialize architecture** - Run `arch-init` to create the architecture skeleton
+- **Begin decomposition** - Run `node-dispatch` to decompose pending nodes relevant to Milestone 1
+- **Continue dispatching** - Re-run `node-dispatch` to handle more pending nodes
 - **Refine if needed** - Adjust scope based on implementation experience
-- **Parallel tracks** - Multiple milestones can be prepared in parallel

@@ -74,6 +74,7 @@ For the node being decomposed:
 | Status | Meaning |
 |--------|--------|
 | pending | Node awaiting decomposition |
+| deferred | Node decomposition postponed to future milestone |
 | decomposed | Has child nodes defined |
 | atomic | Single-focus responsibility, should not decompose further |
 | implemented | Logic ready, tests passed |
@@ -222,5 +223,5 @@ Add other sections only if clearly needed — details will be refined during imp
 
 ## Next Steps
 
-- **To continue decomposition**: Re-run `node-decompose` with no argument to automatically decompose the next pending node
-- **To decompose specific node**: Run `node-decompose <node-name>` for a particular node
+- **To continue decomposition**: Run `node-dispatch` to find and decompose the next pending node relevant to current milestone
+- **To decompose specific node**: Run `node-dispatch <node-name>` for a particular node (if pending)
