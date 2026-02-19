@@ -23,6 +23,7 @@ Follow this process in order:
 3. **Define root node** - Identify the system boundary and top-level responsibility
 4. **Decompose to first level** - Identify 2-6 cohesive first-level components
 5. **Verify coverage** - Ensure all requirements map to nodes
+5.5. **Clarify dataflow** - Annotate inputs, outputs, and side-effects per node
 6. **Write ARCH_SUMMARY.md** - Create summary using template
 7. **Generate node docs** - Create documentation for each node
 
@@ -65,12 +66,19 @@ Identify 2-6 first-level components that:
 | Microservice | API Handler, Business Logic, Data Access |
 | Library | Public API, Internal Core |
 
-### Dependency Rules
+### Structural Dependencies vs Data Movement
 
-- **Acyclic**: No circular dependencies between components
-- **Direction**: Dependencies should flow inward (UI -> Core -> Data)
-- **Minimal coupling**: Prefer interfaces over concrete implementations
-- **Stable contracts**: Nodes depend on stable, documented interfaces
+**Structural dependencies** (who owns or controls state) must form a tree (acyclic):
+- Parent nodes own or control resources that child nodes use
+- Example: API Layer depends on Business Logic, which depends on Data Access
+
+**Data movement** (inputs/outputs of a node) is separate and often bidirectional:
+- UI receives user events (input) and renders visual updates (output)
+- Functions receive arguments (input) and return values (output)
+- Event handlers receive events (input) and emit responses (output)
+- **Bidirectional flows are normal and do not indicate circular dependencies**
+
+Do not force nodes into an acyclic structure to accommodate normal bidirectional data flows.
 
 ## Step 5: Verify Coverage
 
@@ -80,6 +88,24 @@ For each requirement in SPEC.md, verify:
 - No requirement is orphaned or unaccounted for
 
 Document any requirements that don't fit cleanly.
+
+## Step 5.5: Clarify Dataflow
+
+For each node, explicitly annotate inputs, outputs, and side-effects:
+
+**Inputs:** What data/events the node consumes
+- User interactions, API requests, file reads, database queries
+
+**Outputs:** What the node produces
+- Visual renders, API responses, file writes, data transformations
+
+**Side-effects:** Changes to external state
+- Database writes, network calls, state mutations, logging
+
+**Common bidirectional patterns (do NOT force into acyclic structure):**
+- UI: user events (input) ↔ visual updates (output)
+- Library functions: arguments (input) ↔ return values (output)
+- Event handlers: events (input) ↔ responses/side-effects (output)
 
 ## Step 6: Write ARCH_SUMMARY.md
 
@@ -121,6 +147,11 @@ Doc: arch/<RootNodeName>.md
 Responsibility:
 <1-3 sentence high-level ownership description.>
 
+Dataflow: (optional)
+- Input: <what this node consumes>
+- Output: <what this node produces>
+- Side-effects: <external state changes, if any>
+
 ---
 
 ## <SubNode1>
@@ -130,6 +161,11 @@ Doc: arch/nodes/<SubNode1>.md
 
 Responsibility:
 <1-3 sentence summary of this node's purpose.>
+
+Dataflow: (optional)
+- Input: <what this node consumes>
+- Output: <what this node produces>
+- Side-effects: <external state changes, if any>
 
 ---
 
@@ -160,6 +196,23 @@ stub | partial | complete
 ## Responsibility
 
 <1-2 paragraphs defining what this node owns and is accountable for. Include enough detail for future implementers to understand scope.>
+
+## Dataflow
+
+### Inputs
+
+- <What data/events this node consumes>
+- <e.g., user actions, API requests, file reads>
+
+### Outputs
+
+- <What this node produces>
+- <e.g., visual renders, API responses, file writes>
+
+### Side-effects
+
+- <Changes to external state (database writes, network calls, logging)>
+- <Leave blank if none>
 
 ## Public Interface
 
@@ -217,7 +270,8 @@ stub | partial | complete
 - [ ] Root node represents complete system boundary
 - [ ] First-level components are cohesive and orthogonal
 - [ ] All requirements from SPEC.md map to nodes
-- [ ] Dependency graph is acyclic
+- [ ] Structural dependencies form a tree (dataflow clarified separately)
+- [ ] Bidirectional data flows documented (inputs/outputs/side-effects)
 - [ ] ARCH_SUMMARY.md follows template exactly
 - [ ] Each node has documentation file
 - [ ] No implementation details in summary
