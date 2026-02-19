@@ -42,11 +42,13 @@ Do NOT work on parent nodes, sibling nodes, or grandchildren. This skill operate
 Follow this process in order:
 
 1. **Locate target node** - Find the node in ARCH_SUMMARY.md and its documentation
-2. **Analyze node contract** - Review responsibility, dataflow, and public interface from node docs
-3. **Write unit tests** - Create tests for current node's expected behavior
-4. **Generate interface assertions** - Define contracts for child nodes
-5. **Update node documentation** - Record test coverage and contract definitions
-6. **Verify test structure** - Ensure tests compile and follow project conventions
+2. **Define structural skeleton** - Create class/module with method signatures, all raising NotImplementedError
+3. **Define child interfaces** - Create abstract/interface definitions for immediate children
+4. **Write unit tests** - Create tests for current node's expected behavior
+5. **Generate interface assertions** - Define contracts for child nodes
+6. **Create child node documentation** - Create docs for each immediate child in nodes/ subfolder
+7. **Update current node documentation** - Record structural definitions, tests, and contracts
+8. **Verify test structure** - Ensure tests compile and fail as expected
 
 ## Step 1: Locate Target Node
 
@@ -58,19 +60,82 @@ Find the target node in the architecture:
 
 If the user provided a node name, match it against the ARCH_SUMMARY.md hierarchy.
 
-## Step 2: Analyze Node Contract
+## Step 2: Define Structural Skeleton
 
-Review the node documentation to understand:
+Create the structural skeleton for the current node **before writing any tests**:
 
-- **Responsibility** - What the node owns and is accountable for
-- **Dataflow** - Inputs, outputs, and side-effects
-- **Public Interface** - Exposed APIs, events, and configuration
-- **Dependencies** - What the node requires from child nodes
-- **Invariants** - Statements that must always hold
+### Structural Skeleton Requirements
 
-Extract the key contracts that tests must verify.
+1. **Create the class/module** with the public interface from node docs
+2. **Define public method signatures** matching the documented APIs
+3. **Implement constructor** with dependency injection points for child nodes
+4. **Raise NotImplementedError** (or equivalent) in every public method
+5. **No fake return values** - methods must raise exceptions, not return placeholders
 
-## Step 3: Write Unit Tests
+### Implementation Pattern
+
+```python
+# Example (Python)
+class NodeClass:
+    def __init__(self, child_node: ChildInterface):
+        self._child = child_node  # Dependency injection
+
+    def public_method(self, param: Type) -> ReturnType:
+        raise NotImplementedError("Behavior not implemented")
+
+    def another_method(self) -> ReturnType:
+        raise NotImplementedError("Behavior not implemented")
+```
+
+### Language-Specific Notes
+
+- **Python**: Use `raise NotImplementedError("...")`
+- **TypeScript/JavaScript**: Use `throw new Error("...")`
+- **Java**: Use `throw new UnsupportedOperationException("...")`
+- **Go**: Use `panic("not implemented")` or return zero values with error
+- **Rust**: Use `unimplemented!()` or `panic!("not implemented")`
+
+**CRITICAL**: Do NOT return dummy values, None (unless documented), or fake data. The system must be in intentional red state.
+
+## Step 3: Define Child Interfaces
+
+Create abstract/interface definitions for **immediate children only** (first-level subnodes):
+
+### Interface Requirements
+
+1. **Define interface types** - Abstract classes or interface definitions
+2. **Declare method signatures** - Match the contracts from child node docs
+3. **No implementation** - Only type definitions, no behavioral code
+4. **Mark as stub** - Interface exists but has no working implementation
+
+### What to Include
+
+- Input parameter types
+- Output return types
+- Exception types that may be raised
+
+### What NOT to Include
+
+- No implementation logic
+- No stub behavior
+- No wiring to other components
+- No parent node awareness
+
+```python
+# Example - Child Interface (Python)
+from abc import ABC, abstractmethod
+
+class ChildInterface(ABC):
+    @abstractmethod
+    def process(self, data: InputType) -> OutputType:
+        pass
+
+    @abstractmethod
+    def validate(self, item: ItemType) -> bool:
+        pass
+```
+
+## Step 4: Write Unit Tests
 
 Write full unit tests for the current node's expected behavior:
 
@@ -88,7 +153,7 @@ Tests must cover:
 - Include assertions that verify outputs match contracts
 - Document expected failures for unimplemented code
 
-## Step 4: Generate Interface Assertions
+## Step 5: Generate Interface Assertions
 
 Define assertions that verify child nodes conform to their contracts:
 
@@ -105,7 +170,53 @@ Define assertions that verify child nodes conform to their contracts:
 - Do NOT verify edge-case behavior inside stubs
 - Only check inputs/outputs at the interface level
 
-## Step 5: Update Node Documentation
+## Step 6: Create Child Node Documentation
+
+Create documentation for each immediate child node:
+
+### Documentation Structure
+
+1. Create a folder named `nodes/` in the same directory as the current node's doc
+2. For each child node, create `nodes/<ChildNodeName>.md`
+
+### Child Node Documentation Content
+
+Document only what's known from contracts and interfaces:
+
+```markdown
+# <ChildNodeName>
+
+## Status
+
+stub
+
+## Interface Contract
+
+### Exposed APIs
+- `methodName(param: Type): ReturnType` - <Brief purpose>
+
+### Expected Input Shape
+- <Parameter descriptions>
+
+### Expected Output Shape
+- <Return value descriptions>
+
+## Parent Expectations
+
+### How Parent Will Use This Node
+- <What methods parent is expected to call>
+
+### Contract with Parent
+- Input requirements
+- Output guarantees
+```
+
+### What NOT to Include
+
+- No implementation guidance
+- No algorithm descriptions
+- No internal structure details
+- No behavioral specifications beyond contracts
 
 Record all test cases and interface assertions in the node documentation:
 
@@ -137,7 +248,7 @@ Document contracts for each child node:
 List what is NOT covered by tests (defer to implementation phase)
 ```
 
-## Step 6: Verify Test Structure
+## Step 8: Verify Test Structure
 
 Run the full test suite to verify tests work correctly:
 
@@ -154,22 +265,26 @@ If tests pass unexpectedly, either:
 
 ### What This Skill Does NOT Do
 
-- Implement the node or child nodes
-- Write stubs or placeholder code
-- Wire components together
+- Implement behavioral logic - only structural skeleton with NotImplementedError
+- Return placeholder values or fake data
+- Wire implementations together
 - Reference parent nodes beyond defined contracts
-- Verify full functional behavior of child nodes
+- Recursively decompose beyond immediate children
 - Test above the current node (parents) or below (grandchildren)
+- Write stub behavior in child interfaces
 
 ## Success Criteria
 
 - [ ] Target node located in ARCH_SUMMARY.md hierarchy
 - [ ] Node documentation read and contracts extracted
+- [ ] Structural skeleton created (class/module with NotImplementedError)
+- [ ] Child interfaces defined (abstract/interface types only)
 - [ ] Unit tests written for current node's responsibility
 - [ ] Edge cases covered in tests
 - [ ] Interface assertions defined for each child node
-- [ ] Node documentation updated with test coverage
-- [ ] Tests follow project conventions and compile
+- [ ] Node documentation updated with structural definitions, tests, and contracts
+- [ ] Tests compile successfully
+- [ ] Tests fail as expected (red discipline)
 - [ ] Only current node and immediate children affected
 
 ## Next Steps
