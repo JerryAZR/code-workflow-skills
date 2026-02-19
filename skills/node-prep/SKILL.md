@@ -37,6 +37,14 @@ Do NOT implement the node itself—this skill only writes tests and assertions. 
 Do NOT work on parent nodes, sibling nodes, or grandchildren. This skill operates only on the current node and its immediate children.
 </HARD-GATE>
 
+<HARD-GATE>
+Do NOT write tests that expect NotImplementedException. Tests must define expected behavior, not confirm absence of implementation.
+</HARD-GATE>
+
+<HARD-GATE>
+Do NOT allow any test to pass in red state. Red state must occur because behavior is missing, not because throwing is expected.
+</HARD-GATE>
+
 ## Workflow
 
 Follow this process in order:
@@ -139,6 +147,42 @@ class ChildInterface(ABC):
 
 Write full unit tests for the current node's expected behavior:
 
+### !!! CRITICAL: What NOT to Write
+
+**NEVER write tests that:**
+
+- Assert methods throw `NotImplementedException` or similar
+- Validate stub failure behavior
+- Pass in the unimplemented state
+- Only check object instantiation or method existence
+- Use mocks to confirm skeleton structure
+
+These are **false-green tests** that break TDD discipline.
+
+### What TO Write
+
+**Write real functional unit tests that:**
+
+- Define expected behavior of the current node
+- Cover happy paths and edge cases
+- Express real input/output expectations
+- Test behavior through abstract child interfaces (using mock/stub implementations)
+
+Example (correct pattern):
+```python
+def test_process_valid_input_returns_result():
+    result = node.process(valid_input)
+    assert result.success == True
+    assert result.data == expected_output
+```
+
+NOT:
+```python
+def test_process_raises_not_implemented():
+    with pytest.raises(NotImplementedError):
+        node.process(any_input)
+```
+
 ### Test Coverage Requirements
 
 Tests must cover:
@@ -148,7 +192,7 @@ Tests must cover:
 
 ### Red Discipline
 
-- Tests must **fail initially** if the node is unimplemented
+- Tests must **fail initially** because behavior is missing, NOT because exceptions are expected
 - Use descriptive test names that explain expected behavior
 - Include assertions that verify outputs match contracts
 - Document expected failures for unimplemented code
@@ -167,8 +211,9 @@ Define assertions that verify child nodes conform to their contracts:
 
 - Do NOT implement child nodes
 - Do NOT write internal logic for stubs
-- Do NOT verify edge-case behavior inside stubs
-- Only check inputs/outputs at the interface level
+- Do NOT write tests that verify stub runtime failure
+- Do NOT write mock-only structure validation tests (object instantiation, method existence)
+- Only check inputs/outputs at the interface level through functional tests
 
 ## Step 6: Create Child Node Documentation
 
@@ -255,13 +300,36 @@ Run the full test suite to verify tests work correctly:
 1. **Execute tests** - Run the full test suite for the node
 2. **Verify failures** - Tests MUST fail (node is unimplemented)
 3. **Check error messages** - Failures should clearly indicate what's missing
-4. **Fix broken tests** - If tests pass or error unexpectedly, fix the test
+4. **Detect false-green** - Ensure no tests pass due to expected exceptions
+5. **Fix broken tests** - If tests pass or error unexpectedly, fix the test
+
+### False-Green Detection Checklist
+
+After running tests, verify:
+
+- [ ] No tests pass because they expect NotImplementedException
+- [ ] No tests pass due to object instantiation checks
+- [ ] No tests pass due to mock wiring verifications
+- [ ] All failures are due to missing behavior (AttributeError, TypeError, AssertionError)
+- [ ] Tests compile without errors
 
 If tests pass unexpectedly, either:
 - The node is already implemented (verify status in node docs)
 - The test is faulty and cannot detect missing implementation (fix the test)
+- The test is a false-green test (remove it and write real functional test)
 
 ## Constraints
+
+### Explicit Prohibitions
+
+The skill must NOT write:
+
+- Tests expecting `NotImplementedException` or similar
+- Tests that pass in red state
+- Mock-only structure validation tests
+- Integration tests
+- Tests validating stub runtime failure
+- Tests checking only object instantiation or method existence
 
 ### What This Skill Does NOT Do
 
@@ -280,17 +348,33 @@ If tests pass unexpectedly, either:
 - [ ] Structural skeleton created (class/module with NotImplementedError)
 - [ ] Child interfaces defined (abstract/interface types only)
 - [ ] Unit tests written for current node's responsibility
+- [ ] Real functional tests (NOT exception-expecting tests)
 - [ ] Edge cases covered in tests
 - [ ] Interface assertions defined for each child node
 - [ ] Node documentation updated with structural definitions, tests, and contracts
 - [ ] Tests compile successfully
-- [ ] Tests fail as expected (red discipline)
+- [ ] Tests fail as expected (red discipline - due to missing behavior, NOT expected exceptions)
+- [ ] No false-green tests exist
 - [ ] Only current node and immediate children affected
+
+### Correct Red State Definition
+
+After node-prep:
+
+- Structural skeleton exists (methods raise NotImplementedError)
+- Interfaces are declared
+- Real behavioral unit tests exist
+- All functional tests fail because behavior is missing
+- No tests pass due to expected exceptions
+- No mock-only structural confirmation tests exist
+
+The red state must reflect missing behavior, not intentionally passing failure checks.
 
 ## Next Steps
 
 After node-prep execution:
 
-- **Tests fail (expected)** - Tests define the contract; proceed to implement the node using `node-build` skill
-- **Tests pass unexpectedly** - Test may be faulty; fix the test to properly detect unimplemented code
+- **Tests fail due to missing behavior** - Tests define the contract; proceed to implement the node using `node-build` skill
+- **Tests pass unexpectedly** - Likely a false-green test; fix by writing real functional test
+- **Tests fail due to NotImplementedException** - This is wrong; fix by writing tests that define expected behavior
 - **To implement node** - Invoke `node-build` skill to write the implementation
