@@ -21,8 +21,8 @@ Follow this process in order:
 3. **Evaluate user tech stack preference** - If user provided a tech stack argument, evaluate it
 4. **Propose tech stack options** - Present 2-3 options with pros/cons and recommendations
 5. **Document tech stack choice** - Record the selected stack in SPEC.md
-6. **Create minimal project** - Initialize a hello-world level project that compiles/runs
-7. **Verify it works** - Ensure the project runs without errors
+6. **Create minimal project** - Initialize a hello-world level project that compiles/runs with passing tests
+7. **Verify it works** - Ensure the project runs and tests pass
 
 ## Step 1: Check Specification
 
@@ -74,10 +74,27 @@ Present 2-3 options with clear reasoning. Rely on your knowledge of tech stacks 
 ### For Each Option, Include:
 
 - **Language/Framework**: What and why
-- **Pros**: Key advantages (ecosystem, performance, learning curve)
+- **Testing Framework**: Test runner and assertion library (crucial for automated testing)
+- **Pros**: Key advantages (ecosystem, performance, learning curve, testing support)
 - **Cons**: Key drawbacks
 - **Best for**: Ideal use cases
 - **Recommendation**: Strong/Moderate/Use case specific
+
+### Testability Considerations
+
+When evaluating tech stacks, prioritize testability:
+
+- **Test framework availability**: Are there mature, widely-used testing frameworks?
+- **Test isolation**: Can tests run independently without external dependencies?
+- **Mocking support**: Are there good libraries for mocking/stubbing?
+- **Fast feedback**: Can tests run quickly for rapid iteration?
+- **CI integration**: Does the framework integrate easily with CI pipelines?
+
+A tech stack with excellent testing support enables:
+- Reliable automated testing throughout development
+- Confidence when refactoring
+- Regression prevention
+- TDD workflow support (red→green→refactor)
 
 ### Example Presentation
 
@@ -85,17 +102,20 @@ Present 2-3 options with clear reasoning. Rely on your knowledge of tech stacks 
 Based on your project (REST API with JSON), here are my recommendations:
 
 1. **Python + FastAPI** (Recommended)
-   - Pros: Fast development, automatic docs, type validation
+   - Testing Framework: pytest
+   - Pros: Fast development, automatic docs, type validation, pytest excellent for testing
    - Cons: Slower than compiled languages
    - Best for: APIs, microservices
 
 2. **Node.js + Express**
-   - Pros: Huge ecosystem, JavaScript everywhere
+   - Testing Framework: Jest
+   - Pros: Huge ecosystem, JavaScript everywhere, Jest is mature and widely-used
    - Cons: Callback hell (mitigated with async/await)
    - Best for: Full-stack JS projects
 
 3. **Go + Gin**
-   - Pros: Fast, simple, great for concurrency
+   - Testing Framework: Go's built-in testing package
+   - Pros: Fast, simple, great for concurrency, testing included in stdlib
    - Cons: Less expressive, verbose boilerplate
    - Best for: High-performance APIs
 ```
@@ -114,9 +134,13 @@ Example:
 ```markdown
 ## Tech Stack
 
-- **Framework**: Python + FastAPI
-- **Reasoning**: Fast development, automatic OpenAPI docs, type validation
+- **Language**: Python
+- **Framework**: FastAPI
+- **Testing Framework**: pytest
+- **Reasoning**: Fast development, automatic OpenAPI docs, type validation, pytest provides excellent testing with fixtures and parametrization
 ```
+
+**Note:** Always include the testing framework in the tech stack documentation. This is essential for TDD workflow and automated testing.
 
 ## Step 6: Create Minimal Project
 
@@ -124,6 +148,7 @@ Example:
 - Be hello-world level (print "Hello, World!" or equivalent)
 - Compile without errors
 - Run without errors
+- Include a minimal passing test
 - NOT reflect any system architecture
 
 ### Project Structure (Minimal)
@@ -132,7 +157,10 @@ Example:
 project-root/
 ├── src/                 # or app/, lib/ - keep minimal
 │   └── main.{ext}      # entry point (py, js, go, rs, etc.)
+├── tests/              # Test directory (or test/, __tests__/, spec/)
+│   └── main_test.{ext} # Minimal passing test
 ├── package.json         # or requirements.txt, go.mod, etc.
+├── pyproject.toml       # or setup.cfg, package.json with test config
 └── README.md           # basic instructions
 ```
 
@@ -180,6 +208,61 @@ export default function App() {
 }
 ```
 
+### Test Setup by Language
+
+Add a minimal passing test for each language:
+
+**Python (pytest):**
+```python
+# tests/test_main.py
+def test_placeholder():
+    """Placeholder test - replace with real tests during implementation."""
+    assert True
+```
+
+**Node.js/JavaScript (Jest):**
+```javascript
+// tests/main.test.js
+describe('placeholder', () => {
+  test('placeholder test', () => {
+    expect(true).toBe(true);
+  });
+});
+```
+
+**Go (testing):**
+```go
+// main_test.go
+package main
+
+import "testing"
+
+func TestPlaceholder(t *testing.T) {
+    // Placeholder test - replace with real tests during implementation
+    t.Log("Placeholder test passes")
+}
+```
+
+**Rust (built-in):**
+```rust
+// src/main.rs (or tests/integration_test.rs)
+#[test]
+fn placeholder() {
+    // Placeholder test - replace with real tests during implementation
+    assert!(true);
+}
+```
+
+**TypeScript/Jest:**
+```typescript
+// tests/main.test.ts
+describe('placeholder', () => {
+  test('placeholder test', () => {
+    expect(true).toBe(true);
+  });
+});
+```
+
 ## Step 7: Verify It Works
 
 After creating the project:
@@ -187,21 +270,28 @@ After creating the project:
 1. **Install dependencies** - Run package manager install
 2. **Run the project** - Execute the entry point
 3. **Confirm output** - Verify "Hello, World!" or equivalent appears
+4. **Run tests** - Execute the test suite
+5. **Confirm tests pass** - Verify all tests pass (including the placeholder test)
+
+**Critical:** Both the project running AND tests passing are required for successful bootstrap.
 
 Report success:
 ```
 ✅ Project bootstrapped successfully!
 - Tech stack: [chosen stack]
+- Testing framework: [test framework]
 - Project location: [path]
 - Run command: [how to run]
+- Test command: [how to run tests]
 ```
 
 ## Key Principles
 
 - **User choice first** - Respect user's tech stack preference unless clearly wrong
 - **Minimal to start** - Don't add complexity until needed
-- **Working baseline** - Always verify the project compiles/runs before concluding
+- **Working baseline** - Always verify the project compiles/runs and tests pass before concluding
 - **Clear recommendations** - Help users understand trade-offs
+- **Testability first** - Always include testing framework in tech stack decisions; a project without tests is not production-ready
 
 ## Next Steps
 
@@ -209,13 +299,18 @@ After bootstrapping the project:
 
 ### On Success
 - The project compiles and runs without errors
+- The placeholder test passes
 - **Action:** Invoke the `root-architect` skill to define the system architecture
 
 ### On Failure
 - **Logic bugs or syntax errors:**
   - Fix the issue directly in the created project files
-  - Re-run verification until the project works
+  - Re-run verification until the project works AND tests pass
   - Do not proceed to architecture until the baseline is functional
+- **Test failures:**
+  - Fix the test configuration (test runner, test discovery patterns)
+  - Ensure test dependencies are properly installed
+  - Tests must pass before proceeding to architecture
 - **Environment issues (missing tools/packages):**
   - Provide clear guidance to the user on what's needed
   - Example: "Please install Node.js 18+ from https://nodejs.org" or "Run `pip install -r requirements.txt`"
