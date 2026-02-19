@@ -12,6 +12,8 @@ Produce the system's initial shallow architectural topology by decomposing the c
 
 **User's Intent:** $ARGUMENTS
 
+**Argument Handling:** If the user provides an argument (e.g., a project description or spec file path), treat it as user input. Try to satisfy the request directly. If the request seems unclear or suboptimal, clearly argue against it with alternatives. If the user has settled on a decision, respect it and make it work.
+
 ## Workflow
 
 Follow this process in order:
