@@ -18,7 +18,9 @@ This skill is architecture-agnostic—it plans in terms of user-facing features,
 
 ## Prerequisites
 
-None required. This skill works from the specification.
+This skill works from the specification:
+
+1. **Specification exists** - `SPEC.md` must exist with feature requirements
 
 ## Workflow
 
@@ -180,7 +182,7 @@ Create `MILESTONES.md` in the project root:
 
 ## Success Criteria
 
-- [ ] Specification analyzed completely
+- [ ] SPEC.md analyzed completely
 - [ ] All features enumerated
 - [ ] Priorities clarified with user
 - [ ] Each milestone has 3-5 features
