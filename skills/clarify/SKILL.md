@@ -186,3 +186,28 @@ After resolving questions:
 - [ ] Maximum 5 questions per session
 - [ ] Trivial ambiguities noted as TODOs, not questions
 - [ ] User approves spec before moving to implementation
+
+## Next Steps
+
+After clarifying questions are answered, determine the appropriate next action:
+
+### If Clarifications Greatly Alter Requirements
+- The answers change core scope, user scenarios, or data model significantly
+- **Action:** Re-run the **specify** skill to update the specification with the new understanding
+
+### If Critical Ambiguities Remain
+- High-impact questions could not be answered
+- Missing information blocks architecture decisions
+- **Action:** Re-run **clarify** to continue addressing critical unknowns
+
+### If Crystal Clear
+- All high-impact ambiguities resolved
+- Spec has clear scope, data model, and success criteria
+- **Action:** Continue to **bootstrap** skill for implementation
+
+### If Minor, Non-Blocking Ambiguities Remain
+- Only trivial or low-impact uncertainties left
+- Won't affect architecture or core functionality
+- **Action:** Present options to user:
+  - Continue clarifying if they want
+  - Proceed to **bootstrap** if they're ready
