@@ -29,11 +29,9 @@ Follow this process in order:
 ## Step 1: Verify Prerequisites
 
 Check that the project has:
-1. A complete `SPEC.md` with clear scope (generated from the `specify` skill)
-2. A documented Tech Stack section in SPEC.md (from the `bootstrap` skill)
-3. No `[NEEDS CLARIFICATION]` markers (resolved via the `clarify` skill)
-
-If any prerequisite is missing, stop and invoke the `bootstrap` skill.
+1. A complete `SPEC.md` with clear scope (invoke `specify`)
+2. A documented Tech Stack section in SPEC.md (invoke `bootstrap`)
+3. No `[NEEDS CLARIFICATION]` markers (invoke `clarify`)
 
 ## Step 2: Analyze Specification
 
