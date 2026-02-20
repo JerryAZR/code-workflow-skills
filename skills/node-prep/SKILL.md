@@ -64,7 +64,7 @@ Find eligible nodes:
 3. Select any eligible node (non-deterministic)
 
 **Error Handling:**
-- If no eligible nodes exist, report: "No eligible nodes for preparation. All nodes may already be prepared/implemented, or architecture decomposition is incomplete."
+- If no eligible nodes exist, report: "No eligible nodes for preparation. All nodes may already be prepared/implemented, or architecture decomposition is incomplete. If all nodes are prepared or implemented, run milestone-wrapup to complete the milestone."
 
 ---
 
@@ -302,3 +302,4 @@ After preparation:
 - **Implement logic**: Run `node-build` to implement the node and move to "implemented"
 - **Continue preparing**: Re-run `node-prep` for another eligible node
 - **Parallel work**: Multiple nodes can be prepared in parallel
+- **Wrap up milestone**: Run `milestone-wrapup` when all nodes are prepared/implemented

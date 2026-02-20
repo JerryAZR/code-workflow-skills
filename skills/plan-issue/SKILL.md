@@ -234,6 +234,5 @@ Update the issue document by appending:
 ## Next Steps
 
 After planning:
-- **Execute TDD**: Write failing tests for the first task
-- **Implement**: Implement to make tests pass
+- **Execute**: Run `resolve-issue` to implement the tasks in order
 - **Iterate**: Use plan-issue again if scope changes

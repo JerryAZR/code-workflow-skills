@@ -119,6 +119,12 @@ Report the created file path to the user.
 
 ## Next Steps
 
-After issue creation:
-- **Plan**: Run `plan-issue` skill to break down the issue into tasks
-- **Review**: Run arch-review skill to assess impact
+After issue creation, determine the appropriate next action:
+
+### If Issue Statement is Unclear
+- Requirements are ambiguous or missing critical details
+- **Action:** Run `clarify` skill to resolve ambiguities
+
+### If Issue is Clear
+- Requirements are well-defined and actionable
+- **Action:** Run `plan-issue` skill to break down the issue into tasks

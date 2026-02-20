@@ -67,7 +67,7 @@ Find eligible nodes:
 - Any child is not "implemented" or "deferred"
 
 **Error Handling:**
-- If no eligible nodes exist, report: "No eligible nodes for building. Run node-prep first to prepare a node."
+- If no eligible nodes exist, report: "No eligible nodes for building. Run node-prep first to prepare a node. If all nodes are already implemented, run milestone-wrapup to complete the milestone."
 
 ---
 
@@ -238,3 +238,4 @@ After building:
 
 - **Prepare more**: Run `node-prep` to prepare more nodes
 - **Continue building**: Run `node-build` for another prepared node
+- **Wrap up milestone**: Run `milestone-wrapup` when all nodes are implemented
