@@ -48,6 +48,42 @@ The workflow enforces strict TDD discipline and prevents context overload by kee
 
 ## Workflow
 
+```mermaid
+flowchart TB
+    subgraph Phase1["Phase 1: Specification"]
+        A1["/specify"] --> A2["/clarify"]
+        A2 --> A3["/bootstrap"]
+        A3 --> A4["/plan-milestones"]
+    end
+
+    subgraph Phase2["Phase 2: Architecture"]
+        B1["/arch-init"] --> B2["/node-dispatch"]
+        B2 --> B3["/node-decompose"]
+        B3 --> B2
+    end
+
+    subgraph Phase3["Phase 3: Implementation"]
+        C1["/node-prep"] --> C2["/node-build"]
+        C2 --> C3{More Nodes?}
+        C3 -->|Yes| C1
+    end
+
+    subgraph Phase4["Phase 4: Issue Management"]
+        D1["/new-issue"] --> D2["/plan-issue"]
+        D2 --> D3["/resolve-issue"]
+    end
+
+    Phase1 --> Phase2
+    Phase2 -->|All nodes decomposed| Phase3
+    Phase3 -->|Add new feature| Phase4
+    Phase4 --> Phase1
+
+    style Phase1 fill:#e1f5fe
+    style Phase2 fill:#e8f5e8
+    style Phase3 fill:#fff3e0
+    style Phase4 fill:#fce4ec
+```
+
 ### Phase 1: Specification
 
 ```
