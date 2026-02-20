@@ -50,64 +50,64 @@ The workflow enforces strict TDD discipline and prevents context overload by kee
 
 ```mermaid
 flowchart TB
-    subgraph Phase1["Phase 1: Specification"]
-        A1["/specify"] --> A2["/clarify"]
-        A2 --> A3["/bootstrap"]
-        A3 --> A4["/plan-milestones"]
+    subgraph Setup["Setup (One-time)"]
+        S1["/specify"] --> S2["/clarify"]
+        S2 --> S3["/bootstrap"]
+        S3 --> S4["/plan-milestones"]
+        S4 --> S5["/arch-init"]
     end
 
-    subgraph Phase2["Phase 2: Architecture"]
-        B1["/arch-init"] --> B2["/node-dispatch"]
-        B2 --> B3["/node-decompose"]
-        B3 --> B2
+    subgraph Architecture["Architecture (Per Milestone)"]
+        A1["/node-dispatch"] --> A2["/node-decompose"]
+        A2 --> A1
     end
 
-    subgraph Phase3["Phase 3: Implementation"]
-        C1["/node-prep"] --> C2["/node-build"]
-        C2 --> C3{More Nodes?}
-        C3 -->|Yes| C1
+    subgraph Implementation["Implementation"]
+        I1["/node-prep"] --> I2["/node-build"]
+        I2 --> I3{More Nodes?}
+        I3 -->|Yes| I1
     end
 
-    subgraph Phase4["Phase 4: Issue Management"]
-        D1["/new-issue"] --> D2["/plan-issue"]
-        D2 --> D3["/resolve-issue"]
+    subgraph Issue["Issue Management (Optional)"]
+        J1["/new-issue"] --> J2["/plan-issue"]
+        J2 --> J3["/resolve-issue"]
     end
 
-    Phase1 --> Phase2
-    Phase2 -->|All nodes decomposed| Phase3
-    Phase3 -->|Add new feature| Phase4
-    Phase4 --> Phase1
+    Setup --> Architecture
+    Architecture -->|All nodes decomposed| Implementation
+    Implementation -->|Milestone complete| Architecture
+    Implementation -.->|User requests| Issue
 
-    style Phase1 fill:#e1f5fe
-    style Phase2 fill:#e8f5e8
-    style Phase3 fill:#fff3e0
-    style Phase4 fill:#fce4ec
+    style Setup fill:#e1f5fe
+    style Architecture fill:#e8f5e8
+    style Implementation fill:#fff3e0
+    style Issue fill:#fce4ec
 ```
 
-### Phase 1: Specification
+### Setup (One-time per project)
 
 ```
-specify → clarify → bootstrap → plan-milestones
+specify → clarify → bootstrap → plan-milestones → arch-init
 ```
 
 1. **specify**: Create SPEC.md with requirements
 2. **clarify**: Resolve ambiguities
 3. **bootstrap**: Select tech stack and create baseline project
 4. **plan-milestones**: Break into manageable milestones
+5. **arch-init**: Initialize architecture documentation
 
-### Phase 2: Architecture
+### Architecture (Per Milestone)
 
 ```
-arch-init → node-dispatch → node-decompose (repeat)
+node-dispatch → node-decompose (repeat)
 ```
 
-1. **arch-init**: Initialize architecture documentation
-2. **node-dispatch**: Find next pending node for current milestone
-3. **node-decompose**: Decompose node into children
+1. **node-dispatch**: Find next pending node for current milestone
+2. **node-decompose**: Decompose node into children
 
-Repeat until architecture is fully decomposed.
+Repeat until current milestone's architecture is fully decomposed.
 
-### Phase 3: Implementation
+### Implementation
 
 ```
 node-prep → node-build (repeat for each node)
@@ -116,9 +116,11 @@ node-prep → node-build (repeat for each node)
 1. **node-prep**: Generate skeleton + failing tests (TDD - red state)
 2. **node-build**: Implement to make tests pass (green state)
 
-### Phase 4: Issue Management
+When milestone is complete, loop back to Architecture for next milestone.
 
-For bug fixes or feature requests:
+### Issue Management (Optional)
+
+For bug fixes or feature requests (triggered by user):
 
 ```
 new-issue → plan-issue → resolve-issue
