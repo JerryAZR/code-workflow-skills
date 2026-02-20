@@ -98,6 +98,7 @@ Read the node's documentation at `arch/nodes/<NodePath>.md` to understand the co
 
 Generate:
 
+- **File location**: `src/<node_path>.py` (e.g., `auth/UserValidator` → `src/auth/user_validator.py`)
 - Module/class definition
 - Public interface per contract (functions, methods)
 - Data structures
@@ -159,12 +160,20 @@ Generate tests that:
 - Do not inspect internals
 - Do not duplicate child testing
 
-### Test File Naming Convention
+### File Path Convention
 
-Place test files in a `tests/` directory alongside the implementation:
+Place implementation and test files in paths that match the architecture hierarchy.
 
-- **File naming**: `test_<node_name>.py` (e.g., `test_auth_validator.py`)
-- **Test function naming**: `test_<method>_<expected_behavior>`
+**Implementation path:**
+- Location: `src/<node_path>.py`
+- Convert node path to snake_case (e.g., `auth/UserValidator` → `src/auth/user_validator.py`)
+
+**Test path:**
+- Location: `tests/<node_path>.py`
+- Prefix test file with `test_` (e.g., `tests/auth/test_user_validator.py`)
+
+**Test function naming:**
+- `test_<method>_<expected_behavior>`
   - e.g., `test_validate_email_returns_true_for_valid_email`
   - e.g., `test_validate_email_raises_error_for_empty_string`
 - **Group by functionality**: Happy path, error handling, edge cases

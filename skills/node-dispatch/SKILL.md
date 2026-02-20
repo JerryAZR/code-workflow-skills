@@ -145,13 +145,7 @@ After node-decompose completes:
 - Modify MILESTONES.md - Only reads to understand context
 - Implement nodes - Dispatches to node-decompose for that
 - Guess incorrectly - When unsure, always decomposes rather than defers
-- Handle implementation - That's a future skill's responsibility
-
-### What Future Work Can Do
-
-- Re-review deferred nodes when milestone priorities shift
-- Mark deferred nodes back to "pending" when ready
-- Implement atomic nodes directly (future: implementation skill)
+- Handle implementation - Use `node-prep` and `node-build` for that
 
 ---
 
@@ -169,4 +163,4 @@ After node-decompose completes:
 After node-decompose completes:
 - **Continue dispatching**: Re-run `node-dispatch` to handle the next pending node
 - **Check milestone progress**: If current milestone features are covered, move to next milestone
-- **Implementation phase**: When all architecture nodes are decomposed, proceed to implementation skill (future)
+- **Implementation phase**: When all architecture nodes are decomposed, run `node-prep` to prepare nodes for implementation

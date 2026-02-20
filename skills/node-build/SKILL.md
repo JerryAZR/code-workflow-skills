@@ -76,7 +76,9 @@ Find eligible nodes:
 Before coding, confirm:
 
 1. **Tests exist and fail** - Run tests to confirm red state
+   - Tests location: `tests/<node_path>.py` (e.g., `tests/auth/test_user_validator.py`)
 2. **Public interface matches architecture** - Verify class/method signatures match contract
+   - Implementation location: `src/<node_path>.py`
 3. **No logic already present** - Confirm methods still raise NotImplementedError
 
 **Refuse if tests already pass** - Return to user, something is wrong.
