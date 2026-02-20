@@ -144,22 +144,37 @@ Architecture nodes progress through these states:
 
 | State | Meaning |
 |-------|---------|
-| `pending` | Awaiting decomposition |
+| `pending` | Awaiting decomposition or re-validation for new milestone |
 | `decomposed` | Has child nodes defined |
 | `atomic` | Leaf node, should not decompose further |
 | `prepared` | Skeleton + failing tests created |
 | `implemented` | Logic implemented, tests passing |
-| `deferred` | Not part of current milestone |
-| `stubbed` | Placeholder for deferred dependencies |
+
+**Note:** The earlier model included `deferred` and `stubbed` states. The current model uses a **stable-topology, evolving-contract** approach where all nodes exist in the architecture from the start. Scope is controlled behaviorally (what features are required) rather than structurally (what nodes exist).
+
+> **Planned:** This approach is documented here as the target direction. Skills will be updated in a future iteration to fully implement the behavioral scope gating model.
 
 ---
 
 ## Key Principles
 
-- **Architecture out of iteration loop** - Structure is fixed; implementation is iterative
+- **Stable topology, evolving contract** - Architecture is fully elaborated early and remains fixed; milestones expand what each node must provide
 - **One-level decomposition** - Only decompose one level at a time to prevent context explosion
 - **TDD enforced** - Tests must fail before implementation; never weaken tests to make them pass
 - **Bounded scope** - Each iteration is small, local, and context-efficient
+- **Behavioral scope gating** - Scope is controlled by limiting required features, not by hiding nodes
+
+### Why This Approach
+
+Earlier versions controlled scope by deferring nodes (structural scope gating). This proved unstable for LLM agents because:
+- Partial trees create ambiguity — LLMs perceive "missing" branches as open obligations
+- Deferred nodes blur parent responsibilities
+- Absence-based control is weak for probabilistic agents
+
+The current approach separates structure from capability:
+- **Structural design** is fixed — all nodes exist from the start
+- **Capability evolution** is incremental — milestones define what features each node must provide
+- **Contract invalidation** — when entering a new milestone, node status may revert to `pending` for re-validation, but code remains unchanged
 
 ---
 
