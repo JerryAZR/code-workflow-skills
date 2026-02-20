@@ -35,6 +35,7 @@ The workflow enforces strict TDD discipline and prevents context overload by kee
 | [node-dispatch](skills/node-dispatch/) | Selects next pending node relevant to current milestone |
 | [node-prep](skills/node-prep/) | Prepares nodes with skeleton code and failing tests |
 | [node-build](skills/node-build/) | Implements prepared nodes following TDD workflow |
+| [milestone-wrapup](skills/milestone-wrapup/) | Verifies milestone completion and transitions to next milestone |
 
 ### Issue Management
 
@@ -66,6 +67,7 @@ flowchart TB
         I1["/node-prep"] --> I2["/node-build"]
         I2 --> I3{More Nodes?}
         I3 -->|Yes| I1
+        I3 -->|No| I4["/milestone-wrapup"]
     end
 
     subgraph Issue["Issue Management (Optional)"]
@@ -75,13 +77,16 @@ flowchart TB
 
     Setup --> Architecture
     Architecture -->|All nodes decomposed| Implementation
-    Implementation -->|Milestone complete| Architecture
+    Implementation --> I4
+    I4 -->|More milestones| Architecture
+    I4 -->|All complete| Done[("Done")]
     Implementation -.->|User requests| Issue
 
     style Setup fill:#e1f5fe
     style Architecture fill:#e8f5e8
     style Implementation fill:#fff3e0
     style Issue fill:#fce4ec
+    style Done fill:#e0e0e0
 ```
 
 ### Setup (One-time per project)
@@ -110,11 +115,12 @@ Repeat until current milestone's architecture is fully decomposed.
 ### Implementation
 
 ```
-node-prep → node-build (repeat for each node)
+node-prep → node-build (repeat for each node) → milestone-wrapup
 ```
 
 1. **node-prep**: Generate skeleton + failing tests (TDD - red state)
 2. **node-build**: Implement to make tests pass (green state)
+3. **milestone-wrapup**: Verify completion and transition to next milestone
 
 When milestone is complete, loop back to Architecture for next milestone.
 
@@ -167,6 +173,7 @@ Invoke skills directly using `/skill-name`:
 /plan-milestones MVP first
 /node-prep
 /node-build
+/milestone-wrapup
 /new-issue add dark mode
 /plan-issue 001
 /resolve-issue 001
