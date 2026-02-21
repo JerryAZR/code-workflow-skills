@@ -296,9 +296,7 @@ Must always hold:
 
 ## Next Steps
 
-After preparation:
+After preparing this node:
 
-- **Implement logic**: Run `node-build` to implement the node and move to "implemented"
-- **Continue preparing**: Re-run `node-prep` for another eligible node
-- **Parallel work**: Multiple nodes can be prepared in parallel
+- **Implement logic**: Run `node-build` for this node to move it to "implemented"
 - **Wrap up milestone**: Run `milestone-wrapup` when all nodes are prepared/implemented
