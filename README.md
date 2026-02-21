@@ -57,6 +57,7 @@ The workflow enforces strict TDD discipline and prevents context overload by kee
 | [new-issue](skills/new-issue/) | Creates feature request or bug report documents |
 | [plan-issue](skills/plan-issue/) | Creates task roadmap with TDD discipline |
 | [resolve-issue](skills/resolve-issue/) | Executes issue resolution in batches with review checkpoints |
+| [quick-patch](skills/quick-patch/) | Quick fix for trivial bugs/features (TDD shortcut) |
 
 ---
 
@@ -207,6 +208,7 @@ Invoke skills directly using `/skill-name`:
 /new-issue add dark mode
 /plan-issue 001
 /resolve-issue 001
+/quick-patch fix login button
 ```
 
 ---

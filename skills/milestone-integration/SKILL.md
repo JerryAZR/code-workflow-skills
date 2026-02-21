@@ -53,6 +53,9 @@ From the "Features to Verify" section, list each feature that needs integration 
 ...
 ```
 
+**Error Handling:**
+- If `milestones/{index}-{name}/capabilities.md` does not exist, report: "Capabilities file not found. The milestone may not have been initialized properly. Run milestone-init first to create the milestone structure."
+
 ---
 
 ## Step 2: Identify Integration Points
