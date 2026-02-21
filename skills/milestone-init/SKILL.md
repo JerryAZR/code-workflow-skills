@@ -184,6 +184,23 @@ This document defines what each architecture node must provide for this mileston
 {Node 2}
 ...
 
+## Manual Verification Checklist
+
+### How to Start
+
+| Project Type | Command |
+|--------------|---------|
+| Python CLI | `python -m <module>` or `python <entrypoint>.py` |
+| Node.js CLI | `node <entrypoint>.js` or `npm run start` |
+| Web App | `npm run dev` or `python -m flask run` |
+| GUI App | Run the built executable |
+| Library | N/A (no startup needed) |
+
+### Features to Verify
+
+- {feature 1 from milestone}
+- {feature 2 from milestone}
+
 ## Verification
 
 After implementation, each node's tests should verify these capabilities.

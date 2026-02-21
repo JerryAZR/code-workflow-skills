@@ -123,40 +123,9 @@ Perform final checks before marking milestone complete:
 
 ## Step 4b: Manual Verification
 
-Present the user with a manual verification checklist.
+Present the user with the manual verification checklist from `milestones/{index}-{name}/capabilities.md`.
 
 **If user wants to skip:** Respect their choice and proceed to Step 5.
-
-### Generate Startup Command
-
-Determine how to start/run the application:
-
-| Project Type | Command |
-|--------------|---------|
-| Python CLI | `python -m <module>` or `python <entrypoint>.py` |
-| Node.js CLI | `node <entrypoint>.js` or `npm run start` |
-| Web App | `npm run dev` or `python -m flask run` |
-| GUI App | Run the built executable |
-| Library | N/A (no startup needed) |
-
-### Extract Features
-
-Read the milestone scope from `milestones/MILESTONES.md` to list what features were implemented.
-
-### Present Checklist
-
-Show the user:
-
-```
-## Manual Verification Checklist
-
-### How to Start
-[command to run]
-
-### Features to Verify
-- [ ] Feature 1
-- [ ] Feature 2
-```
 
 Wait for user to complete verification before proceeding.
 
