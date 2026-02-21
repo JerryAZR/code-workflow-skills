@@ -32,6 +32,11 @@ The workflow enforces strict TDD discipline and prevents context overload by kee
 |-------|-------------|
 | [arch-init](skills/arch-init/) | Initializes architecture documentation with root node |
 | [node-decompose](skills/node-decompose/) | Decomposes architecture nodes into child components |
+
+### Milestone Implementation
+
+| Skill | Description |
+|-------|-------------|
 | [milestone-init](skills/milestone-init/) | Derives per-node feature requirements for current milestone |
 | [node-prep](skills/node-prep/) | Prepares nodes with skeleton code and failing tests |
 | [node-build](skills/node-build/) | Implements prepared nodes following TDD workflow |
