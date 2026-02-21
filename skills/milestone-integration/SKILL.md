@@ -120,13 +120,19 @@ Generate tests that:
 | External deps | Mocked | Real or integrated |
 | Speed | Fast | Slower |
 
+### UI Testing Preference
+
+When the testing framework supports true E2E UI tests (e.g., Playwright, Cypress, Selenium), prefer those over data-only tests. True E2E tests exercise actual user interactions (clicks, typing, navigation) and validate the full user experience.
+
+If the framework only supports data validation (fire events, check rendered data), that is acceptable as a fallback.
+
 ### Explicitly Forbidden Patterns
 
 Do NOT generate:
 
 1. **Re-unit-test** - Don't re-test individual node logic (that's in unit tests)
 2. **Full system tests** - Don't test external services, databases, APIs
-3. **UI interaction tests** (unless framework doesn't support data validation) - Prefer validating data to be displayed rather than testing clicks/renders directly
+3. **Data-only tests** (if framework supports true E2E) - Prefer true E2E UI tests that exercise actual user interactions when supported
 
 ---
 
