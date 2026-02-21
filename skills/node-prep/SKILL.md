@@ -153,7 +153,7 @@ Generate tests that:
 - Cover:
   - Nominal behavior (happy path)
   - Edge cases
-  - Failure semantics
+  - Failure semantics (verify functions raise appropriate errors like ValueError, TypeError)
   - Invariants
 - Express real input/output expectations
 
@@ -187,7 +187,7 @@ Place implementation and test files in paths that match the architecture hierarc
 
 Do NOT generate any of these:
 
-1. **Exception-expecting tests** - Tests that assert methods throw NotImplementedError/NotImplementedException
+1. **NotImplementedError-expecting tests** - Tests that assert methods throw NotImplementedError or NotImplementedException
 2. **Structural validation tests** - Tests that only check:
    - Object instantiation
    - Method existence
