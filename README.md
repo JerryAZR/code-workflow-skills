@@ -35,7 +35,14 @@ The workflow enforces strict TDD discipline and prevents context overload by kee
 | [milestone-init](skills/milestone-init/) | Derives per-node feature requirements for current milestone |
 | [node-prep](skills/node-prep/) | Prepares nodes with skeleton code and failing tests |
 | [node-build](skills/node-build/) | Implements prepared nodes following TDD workflow |
+| [node-test-add](skills/node-test-add/) | Adds tests for modified nodes before milestone wrapup |
 | [milestone-wrapup](skills/milestone-wrapup/) | Verifies milestone completion and transitions to next milestone |
+
+### Deprecated
+
+| Skill | Description |
+|-------|-------------|
+| [node-dispatch](skills/deprecated/node-dispatch/) | DEPRECATED: Use node-decompose directly |
 
 ### Issue Management
 
@@ -55,13 +62,13 @@ flowchart TB
         S1["/specify"] --> S2["/clarify"]
         S2 --> S3["/bootstrap"]
         S3 --> S4["/plan-milestones"]
-        S4 --> S5["/arch-init"]
     end
 
     subgraph Architecture["Architecture (One-time)"]
-        A1["/node-decompose"] --> A2{More Nodes?}
+        A0["/arch-init"] --> A1["/node-decompose"]
+        A1 --> A2{More Nodes?}
         A2 -->|Yes| A1
-        A2 -->|No| A3["/milestone-init"]
+        A2 -->|No| A3[("Architecture complete")]
     end
 
     subgraph Implementation["Implementation (Per Milestone)"]
@@ -69,7 +76,8 @@ flowchart TB
         I2 --> I3["/node-build"]
         I3 --> I4{More Nodes?}
         I4 -->|Yes| I2
-        I4 -->|No| I5["/milestone-wrapup"]
+        I4 -->|No| I5["/node-test-add"]
+        I5 --> I6["/milestone-wrapup"]
     end
 
     subgraph Issue["Issue Management (Optional)"]
@@ -78,10 +86,9 @@ flowchart TB
     end
 
     Setup --> Architecture
-    Architecture -->|All nodes decomposed| Implementation
-    Implementation --> I5
-    I5 -->|More milestones| Architecture
-    I5 -->|All complete| Done[("Done")]
+    Architecture -->|All nodes elaborated| Implementation
+    I6 -->|More milestones| I1
+    I6 -->|All complete| Done[("Done")]
     Implementation -.->|User requests| Issue
 
     style Setup fill:#e1f5fe
@@ -94,36 +101,36 @@ flowchart TB
 ### Setup (One-time per project)
 
 ```
-specify → clarify → bootstrap → plan-milestones → arch-init
+specify → clarify → bootstrap → plan-milestones
 ```
 
 1. **specify**: Create SPEC.md with requirements
 2. **clarify**: Resolve ambiguities
 3. **bootstrap**: Select tech stack and create baseline project
 4. **plan-milestones**: Break into manageable milestones
-5. **arch-init**: Initialize architecture documentation
 
 ### Architecture (One-time)
 
 ```
-node-decompose (repeat until full tree) → milestone-init
+arch-init → node-decompose (repeat until full tree)
 ```
 
-1. **node-decompose**: Decompose nodes until architecture tree is complete
-2. **milestone-init**: Derive per-node feature requirements for current milestone
+1. **arch-init**: Initialize architecture documentation with root node
+2. **node-decompose**: Decompose nodes until architecture tree is complete
 
-Run once after `arch-init` to fully elaborate the architecture. Use `milestone-init` before each new milestone.
+Run once after Setup to fully elaborate the architecture.
 
 ### Implementation (Per Milestone)
 
 ```
-milestone-init → node-prep → node-build (repeat) → milestone-wrapup
+milestone-init → node-prep → node-build (repeat) → node-test-add → milestone-wrapup
 ```
 
 1. **milestone-init**: Define what each node must provide for this milestone
 2. **node-prep**: Generate skeleton + failing tests (TDD - red state)
 3. **node-build**: Implement to make tests pass (green state)
-4. **milestone-wrapup**: Verify completion and transition to next milestone
+4. **node-test-add**: Add tests for nodes modified during implementation (should pass)
+5. **milestone-wrapup**: Verify completion and transition to next milestone
 
 When milestone is complete, run `milestone-init` for the next milestone.
 
@@ -147,25 +154,30 @@ Architecture nodes progress through these states:
 
 | State | Meaning |
 |-------|---------|
-| `pending` | Awaiting decomposition or re-validation for new milestone |
-| `decomposed` | Has child nodes defined |
-| `atomic` | Leaf node, should not decompose further |
+| `pending` | Awaiting contract definition (architecture phase) |
+| `atomic` | Leaf node in architecture (architecture phase) |
+| `decomposed` | Non-leaf node in architecture (architecture phase) |
+| `planned` | Node has milestone contract, awaiting preparation |
 | `prepared` | Skeleton + failing tests created |
 | `implemented` | Logic implemented, tests passing |
+| `modified` | Parent implementation changed this node's behavior; needs additional tests |
 
-**Note:** The earlier model included `deferred` and `stubbed` states. The current model uses a **stable-topology, evolving-contract** approach where all nodes exist in the architecture from the start. Scope is controlled behaviorally (what features are required) rather than structurally (what nodes exist).
-
-> **Planned:** This approach is documented here as the target direction. Skills will be updated in a future iteration to fully implement the behavioral scope gating model.
+The toolkit uses a **stable-topology, evolving-contract** approach where:
+- Architecture tree is fully elaborated early (all nodes exist from start)
+- Nodes start as `pending`, become `atomic` or `decomposed` during architecture
+- Entering a new milestone reverts state to `planned` for contract expansion
+- `modified` state tracks nodes whose behavior changed during parent implementation
 
 ---
 
 ## Key Principles
 
-- **Stable topology, evolving contract** - Architecture is fully elaborated early and remains fixed; milestones expand what each node must provide
+- **Stable topology, evolving contract** - Architecture tree is fully elaborated early and remains fixed; milestones expand what each node must provide
 - **One-level decomposition** - Only decompose one level at a time to prevent context explosion
 - **TDD enforced** - Tests must fail before implementation; never weaken tests to make them pass
 - **Bounded scope** - Each iteration is small, local, and context-efficient
 - **Behavioral scope gating** - Scope is controlled by limiting required features, not by hiding nodes
+- **Contract invalidation** - When entering a new milestone, node status reverts to `planned` for re-validation; code remains unchanged
 
 ### Why This Approach
 
@@ -174,10 +186,10 @@ Earlier versions controlled scope by deferring nodes (structural scope gating). 
 - Deferred nodes blur parent responsibilities
 - Absence-based control is weak for probabilistic agents
 
-The current approach separates structure from capability:
+The stable-topology approach separates structure from capability:
 - **Structural design** is fixed — all nodes exist from the start
 - **Capability evolution** is incremental — milestones define what features each node must provide
-- **Contract invalidation** — when entering a new milestone, node status may revert to `pending` for re-validation, but code remains unchanged
+- **Contract invalidation** — when entering a new milestone, node status reverts to `planned` for re-validation, but code remains unchanged
 
 ---
 
@@ -194,6 +206,7 @@ Invoke skills directly using `/skill-name`:
 /milestone-init
 /node-prep
 /node-build
+/node-test-add
 /milestone-wrapup
 /new-issue add dark mode
 /plan-issue 001

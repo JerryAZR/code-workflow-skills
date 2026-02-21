@@ -206,4 +206,4 @@ After building:
 
 - **Prepare more**: Run `node-prep` to prepare more nodes
 - **Continue building**: Run `node-build` for another prepared node
-- **Wrap up milestone**: Run `milestone-wrapup` when all nodes are implemented
+- **If no more nodes to build**: Run `node-test-add` to add tests for modified nodes, then `milestone-wrapup` to complete the milestone

@@ -236,3 +236,4 @@ Node documentation created here defines **what the node IS**:
 
 - **To continue decomposition**: Run `node-decompose` to find and decompose the next pending node relevant to current milestone
 - **To decompose specific node**: Run `node-decompose <node-name>` for a particular node (if pending)
+- **If all nodes decomposed**: When no more pending nodes exist, run `milestone-init` to begin the Implementation phase
