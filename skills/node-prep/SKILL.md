@@ -90,10 +90,16 @@ Confirm the selected node can be prepared:
 
 ## Step 3: Generate Skeleton
 
-Read the node's documentation at `arch/nodes/<NodePath>.md` to understand the contract.
+Read the node's documentation to understand the contract:
+
+1. First read `arch/nodes/<NodePath>.md` for structural contract (responsibility, input/output)
+2. Then read `milestones/{milestone}/capabilities.md` for milestone-specific capabilities
+
+Generate skeleton and tests based on BOTH sources.
 
 **Error Handling:**
 - If `arch/nodes/<NodePath>.md` does not exist, report: "Node contract undefined. Cannot prepare node without documentation at arch/nodes/<NodePath>.md. Run node-decompose first to create the node documentation."
+- If `milestones/{milestone}/capabilities.md` does not exist, report: "Milestone capabilities undefined. Run milestone-init first to define node capabilities for this milestone."
 
 Generate:
 

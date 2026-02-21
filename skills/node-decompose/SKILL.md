@@ -199,6 +199,18 @@ Add other sections only if clearly needed — details will be refined during imp
 
 ## Constraints
 
+### Scope: Structural Only
+
+Node documentation created here defines **what the node IS**:
+- Responsibility: What this node owns at the architecture level
+- Dataflow: Input sources, output destinations, side-effects
+- Contract: How parent and child interact (interfaces, protocols)
+
+**DO NOT include:**
+- Capabilities or features sections (these belong in milestone capabilities.md)
+- Behavioral requirements (these are added per-milestone)
+- Implementation details
+
 ### What This Skill Does NOT Do
 
 - Implementation - No code, algorithms, or data structures

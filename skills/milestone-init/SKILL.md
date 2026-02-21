@@ -96,6 +96,8 @@ For each node, document:
 ```
 ## {NodeName}
 
+**Base Responsibility:** See arch/nodes/{NodePath}.md
+
 **Milestone Contract:**
 - {capability 1}
 - {capability 2}
@@ -107,6 +109,8 @@ For each node, document:
 **Expected Tests:**
 - {test that verifies capability}
 ```
+
+The capabilities.md **extends** arch/nodes/ with behavioral requirements — it does NOT replace the structural contract.
 
 ### Decision Rules
 
@@ -175,6 +179,18 @@ milestones/
 ---
 
 ## Constraints
+
+### Scope: Behavioral Only
+
+Capabilities.md defines **what the node MUST DO** for this milestone:
+- Specific capabilities the node must provide
+- Features being implemented
+- Expected tests that verify behavior
+
+**DO NOT include:**
+- Redefining structural responsibility (that's in arch/nodes/)
+- Input/output contract details (that's in arch/nodes/)
+- Implementation approach (that's decided during node-prep/node-build)
 
 ### What This Skill Does
 
