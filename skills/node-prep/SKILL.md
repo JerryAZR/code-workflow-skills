@@ -332,4 +332,4 @@ Must always hold:
 After preparing this node:
 
 - **Implement logic**: Run `node-build` for this node to move it to "implemented"
-- **Wrap up milestone**: Run `milestone-wrapup` when all nodes are prepared/implemented
+- **Add tests for modified**: Run `node-test-add` when all nodes are implemented

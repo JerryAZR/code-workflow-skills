@@ -1,6 +1,6 @@
 ---
 name: node-test-add
-description: "Implements additional tests for nodes with state 'modified'. Use when a parent node's implementation modified a child node's behavior, requiring additional test coverage before milestone-wrapup."
+description: "Implements additional tests for nodes with state 'modified'. Use when a parent node's implementation modified a child node's behavior, requiring additional test coverage before milestone-integration."
 argument-hint: "[node-name]"
 ---
 

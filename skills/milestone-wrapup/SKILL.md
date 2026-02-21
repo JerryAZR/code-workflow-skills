@@ -108,6 +108,18 @@ Perform final checks before marking milestone complete:
 - [ ] Runnable product exists and works
 - [ ] Milestone scope is fulfilled
 - [ ] No critical blockers remain
+- [ ] Integration tests exist at `tests/integration/test_{milestone_name}.py`
+- [ ] Integration tests cover features listed in `milestones/{index}-{name}/capabilities.md`
+
+### Integration Test Validation
+
+Check if integration tests exist and cover the declared features:
+
+1. Read `milestones/{index}-{name}/capabilities.md` to get the list of features to verify
+2. Check if `tests/integration/test_{milestone_name}.py` exists
+3. If integration tests don't exist or don't cover all features:
+   - Invoke `milestone-integration` to create them
+   - After integration tests are created, re-run this self-check
 
 ### Handling Incomplete Work
 
@@ -121,7 +133,7 @@ Perform final checks before marking milestone complete:
 
 ---
 
-## Step 4b: Manual Verification
+## Step 4c: Manual Verification
 
 Present the user with the manual verification checklist from `milestones/{index}-{name}/capabilities.md`.
 
@@ -191,6 +203,7 @@ Update `milestones/MILESTONES.md` to mark current milestone complete:
 - [ ] Architecture nodes reviewed
 - [ ] Node states are acceptable for milestone type
 - [ ] Runnable product verified
+- [ ] Integration tests exist and cover declared features (or milestone-integration invoked)
 - [ ] Manual verification checklist presented to user (or user chose to skip)
 - [ ] Achievements documented in milestones/MILESTONES.md
 - [ ] Current milestone marked complete

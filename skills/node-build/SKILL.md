@@ -205,4 +205,4 @@ Must always hold:
 After building this node:
 
 - **Prepare next node**: Run `node-prep` to prepare another node for implementation
-- **Wrap up milestone**: Run `milestone-wrapup` when all nodes are implemented
+- **Add tests for modified**: Run `node-test-add` when all nodes are implemented
