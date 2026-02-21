@@ -1,6 +1,6 @@
 ---
 name: milestone-wrapup
-description: "Wraps up the current milestone by verifying implementation progress, documenting achievements, and transitioning to the next milestone. Use when a milestone's work is complete and ready for review."
+description: "Concludes the current milestone by verifying implementation progress and documenting achievements. Use when a milestone's work is complete and ready for review. The next milestone will be started separately via milestone-init."
 argument-hint: "[milestone-number]"
 ---
 
@@ -8,11 +8,11 @@ argument-hint: "[milestone-number]"
 
 ## Overview
 
-Verify that the current milestone is complete, document what has been achieved, and prepare for the next milestone.
+Verify that the current milestone is complete and document what has been achieved.
 
 **User's Intent:** $ARGUMENTS
 
-This skill ensures milestone completion follows a consistent process with proper verification and documentation.
+This skill concludes milestone completion with proper verification and documentation. The next milestone is started separately using milestone-init.
 
 ## Prerequisites
 
@@ -29,7 +29,6 @@ Follow this process in order:
 4. **Validate Completeness** - Ensure all required work is done
 5. **Manual Verification** - Present checklist for user to verify features (REQUIRED)
 6. **Document Achievements** - Record completed work in milestones/MILESTONES.md (only after validation passes)
-7. **Transition Milestones** - Mark current complete, next active
 
 ---
 
@@ -40,7 +39,6 @@ Read `milestones/MILESTONES.md` to understand:
 1. **Current milestone** - Which milestone is in-progress (or specified)
 2. **Milestone scope** - What features are included
 3. **Success criteria** - What must be complete to wrap up
-4. **Next milestone** - What comes after (if any)
 
 If no milestone number provided, find the in-progress milestone (status: "in-progress").
 
@@ -195,45 +193,26 @@ Append to the current milestone:
 
 ---
 
-## Step 6: Transition Milestones
+## Step 6: Mark Complete
 
-Update `milestones/MILESTONES.md` to mark completion:
-
-### Mark Current Milestone Complete
+Update `milestones/MILESTONES.md` to mark current milestone complete:
 
 ```markdown
 ## Milestone 1: Core Skeleton
 **Status:** complete
 ```
 
-### Activate Next Milestone (if exists)
-
-```markdown
-## Milestone 2: Feature Addition
-**Status:** in-progress
-```
-
-### If No Next Milestone
-
-```markdown
-## All Milestones Complete
-**Status:** complete
-```
-
-### Contract Invalidation for Next Milestone
-
-After completing a milestone:
-
-1. Read `arch/ARCH_SUMMARY.md`
-2. All nodes remain in their current state (`implemented`, `prepared`, etc.)
-3. The next `milestone-init` will define new contracts for each node
+**After this step:**
+- Current milestone is marked complete
+- Next milestone remains "planned" (not activated)
+- Run `milestone-init` to define contracts for the next milestone
 
 ---
 
 ## Constraints
 
-- **Does NOT**: Implement features, fix tests, refactor, re-architect, decide scope
-- **Does**: Verify completion, document achievements, transition states, report blockers
+- **Does NOT**: Implement features, fix tests, refactor, re-architect, decide scope, activate next milestone
+- **Does**: Verify completion, document achievements, mark current complete, report blockers
 
 ---
 
@@ -246,13 +225,11 @@ After completing a milestone:
 - [ ] Manual verification checklist presented to user (or user chose to skip)
 - [ ] Achievements documented in milestones/MILESTONES.md
 - [ ] Current milestone marked complete
-- [ ] Next milestone marked active (if exists)
-- [ ] Nodes ready for next milestone's contract (via milestone-init)
 
 ---
 
 ## Next Steps
 
-- **More milestones**: Run `milestone-init` → `node-prep` → `node-build`
+- **Start next milestone**: Run `milestone-init` to define contracts for the next milestone
 - **All complete**: Run full test suite
 - **Blocked**: Continue implementation or adjust scope with `plan-milestones`
