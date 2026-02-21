@@ -24,7 +24,7 @@ This is a shortcut for quick work. For complex changes that require planning, ar
 Follow this process in order:
 
 1. **Assess Complexity** - Determine if patch is trivial or non-trivial
-2. **Suggest Full Flow** - Offer new-issue → plan-issue → resolve-issue for non-trivial
+2. **Suggest Full Flow** - Offer issue-create → issue-plan → issue-resolve for non-trivial
 3. **Create Tests** - Write failing tests covering the bug/feature
 4. **Run Tests** - Verify tests fail (red state)
 5. **Implement Fix** - Write code to make tests pass
@@ -62,9 +62,9 @@ If the patch appears **non-trivial**, suggest the full issue flow:
 This appears to be a non-trivial change. For better tracking and TDD discipline,
 consider using the full issue flow:
 
-  /new-issue <description>
-  /plan-issue
-  /resolve-issue
+  /issue-create <description>
+  /issue-plan
+  /issue-resolve
 
 This provides structured task breakdown and review checkpoints.
 
@@ -73,7 +73,7 @@ Should I proceed with quick-patch anyway, or use the full flow?
 
 **If user insists**: Proceed with quick-patch (respect their choice).
 
-**If user agrees**: Use new-issue → plan-issue → resolve-issue instead.
+**If user agrees**: Use issue-create → issue-plan → issue-resolve instead.
 
 ---
 
@@ -196,5 +196,5 @@ If tests still fail:
 
 After quick-patch completes:
 - **More changes**: Run quick-patch again for additional fixes
-- **Complex work**: Use new-issue → plan-issue → resolve-issue
+- **Complex work**: Use issue-create → issue-plan → issue-resolve
 - **Testing**: Run full test suite to ensure no regressions

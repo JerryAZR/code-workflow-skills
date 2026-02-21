@@ -1,10 +1,10 @@
 ---
-name: milestone-integration
+name: milestone-integrate
 description: "Creates integration and end-to-end tests that verify all milestone features work together. Use when all nodes are implemented and ready for milestone wrapup, to provide confidence before manual verification."
 argument-hint: "[milestone-name]"
 ---
 
-# Milestone Integration
+# Milestone Integrate
 
 ## Overview
 
@@ -158,7 +158,7 @@ If tests fail, proceed to Step 5.
 If integration tests FAIL:
 
 1. **Analyze failure**: Is it a unit test issue or integration issue?
-2. **If unit test issue**: The node's unit tests need fixing (use node-test-add or node-build)
+2. **If unit test issue**: The node's unit tests need fixing (use milestone-test-add or node-build)
 3. **If integration issue**: Fix the integration/wiring between nodes
 
 **Common integration issues:**
@@ -182,7 +182,7 @@ Fix and re-run until tests pass.
 ### What This Skill Does NOT Do
 
 - Modify node implementations (except trivial fixes)
-- Create unit tests (that's node-prep/node-build/node-test-add)
+- Create unit tests (that's node-prep/node-build/milestone-test-add)
 - Perform manual verification (that's milestone-wrapup)
 - Test external systems or databases
 

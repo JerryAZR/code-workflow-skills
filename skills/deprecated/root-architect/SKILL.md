@@ -1,11 +1,11 @@
 ---
 name: root-architect
-description: "[DEPRECATED] Use arch-init + node-decompose instead"
+description: "[DEPRECATED] Use arch-init + arch-decompose instead"
 ---
 
 > **⚠️ This skill is deprecated.** Use the following workflow instead:
 > - Run `arch-init` to initialize architecture documentation
-> - Run `node-decompose` to expand nodes (root automatically detected if pending)
+> - Run `arch-decompose` to expand nodes (root automatically detected if pending)
 >
 > The new workflow provides incremental decomposition with atomic/pending/decomposed status tracking.
 
@@ -35,9 +35,9 @@ Follow this process in order:
 ## Step 1: Verify Prerequisites
 
 Check that the project has:
-1. A complete `SPEC.md` with clear scope (invoke `specify`)
-2. A documented Tech Stack section in SPEC.md (invoke `bootstrap`)
-3. No `[NEEDS CLARIFICATION]` markers (invoke `clarify`)
+1. A complete `SPEC.md` with clear scope (invoke `spec-create`)
+2. A documented Tech Stack section in SPEC.md (invoke `project-init`)
+3. No `[NEEDS CLARIFICATION]` markers (invoke `spec-clarify`)
 
 ## Step 2: Analyze Specification
 

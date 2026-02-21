@@ -1,22 +1,22 @@
 ---
 name: node-dispatch
-description: "DEPRECATED: Use node-decompose directly. This skill selected and deferred nodes, but the new approach uses stable topology with behavioral scope gating."
+description: "DEPRECATED: Use arch-decompose directly. This skill selected and deferred nodes, but the new approach uses stable topology with behavioral scope gating."
 argument-hint: "[node-name or priority-focus]"
 ---
 
 # Node Dispatch
 
-> **DEPRECATED** - This skill is no longer used. The new workflow uses stable topology where all nodes are elaborated from the start. Use `node-decompose` directly instead.
+> **DEPRECATED** - This skill is no longer used. The new workflow uses stable topology where all nodes are elaborated from the start. Use `arch-decompose` directly instead.
 
 ## Overview
 
-Coordinate milestone progress with architecture decomposition by selecting the next pending node relevant to the current milestone and dispatching to `node-decompose` for decomposition.
+Coordinate milestone progress with architecture decomposition by selecting the next pending node relevant to the current milestone and dispatching to `arch-decompose` for decomposition.
 
 This skill bridges MILESTONES.md (feature-focused) with ARCH_SUMMARY.md (architecture-focused) by:
 1. Identifying the current milestone from MILESTONES.md
 2. Finding pending nodes in ARCH_SUMMARY.md
 3. Determining which pending node is most relevant to the current milestone
-4. Dispatching to node-decompose for that node
+4. Dispatching to arch-decompose for that node
 5. Marking irrelevant nodes as "deferred" when clearly not related
 
 **User's Intent:** $ARGUMENTS
@@ -39,7 +39,7 @@ Follow this process in order:
 2. **Find Pending Nodes** - Locate all pending nodes in ARCH_SUMMARY.md
 3. **Assess Relevance** - Determine if each pending node relates to current milestone
 4. **Decide: Decompose or Defer** - Take action on the target node
-5. **Dispatch** - Invoke node-decompose on the selected node
+5. **Dispatch** - Invoke arch-decompose on the selected node
 
 ---
 
@@ -52,7 +52,7 @@ Read `MILESTONES.md` to identify the current active milestone:
 3. Understand what the milestone aims to achieve
 
 **Error Handling:**
-- If `MILESTONES.md` does not exist, inform the user: "No MILESTONES.md found. Run `plan-milestones` first to create the milestone plan."
+- If `MILESTONES.md` does not exist, inform the user: "No MILESTONES.md found. Run `milestone-plan-all` first to create the milestone plan."
 - If `MILESTONES.md` exists but no milestone has status "in-progress" or "planned", report completion or ask user to activate a milestone.
 
 ---
@@ -125,15 +125,15 @@ Update the node status in `arch/ARCH_SUMMARY.md`:
 
 ## Step 5: Dispatch to Node-Decompose
 
-Invoke the `node-decompose` skill on the selected node:
+Invoke the `arch-decompose` skill on the selected node:
 
 ```
-node-decompose <node-name>
+arch-decompose <node-name>
 ```
 
 If no node-name provided to this skill, use the node selected in Step 4.
 
-After node-decompose completes:
+After arch-decompose completes:
 - Check if there are more pending nodes
 - Re-run this skill to continue with the next node
 - Or report completion if no pending nodes remain
@@ -145,7 +145,7 @@ After node-decompose completes:
 ### What This Skill Does NOT Do
 
 - Modify MILESTONES.md - Only reads to understand context
-- Implement nodes - Dispatches to node-decompose for that
+- Implement nodes - Dispatches to arch-decompose for that
 - Guess incorrectly - When unsure, always decomposes rather than defers
 - Handle implementation - Use `node-prep` and `node-build` for that
 
@@ -157,12 +157,12 @@ After node-decompose completes:
 - [ ] All pending nodes found in ARCH_SUMMARY.md
 - [ ] Relevance assessed for each pending node
 - [ ] Clearly irrelevant nodes marked as "deferred"
-- [ ] Relevant node dispatched to node-decompose
+- [ ] Relevant node dispatched to arch-decompose
 - [ ] Progress reported to user
 
 ## Next Steps
 
-After node-decompose completes:
+After arch-decompose completes:
 - **Continue dispatching**: Re-run `node-dispatch` to handle the next pending node
 - **Check milestone progress**: If current milestone features are covered, move to next milestone
 - **Implementation phase**: When all architecture nodes are decomposed, run `node-prep` to prepare nodes for implementation

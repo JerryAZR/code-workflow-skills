@@ -1,5 +1,5 @@
 ---
-name: plan-issue
+name: issue-plan
 description: "Use when an issue document exists and needs a task roadmap with TDD discipline"
 argument-hint: "[issue-number or issue-slug]"
 ---
@@ -33,7 +33,7 @@ If specified: find `issues/<issue-number>-*.md` or `issues/*-<slug>.md`
 
 If not: find latest issue by highest numeric prefix.
 
-**Error:** If no issues exist, report: "Create an issue first using new-issue skill."
+**Error:** If no issues exist, report: "Create an issue first using issue-create skill."
 
 ---
 
@@ -118,5 +118,5 @@ Issue: "Add dark mode to settings page"
 ## Next Steps
 
 After planning:
-- **Execute**: Run `resolve-issue` to implement the tasks in order
-- **Iterate**: Use plan-issue again if scope changes
+- **Execute**: Run `issue-resolve` to implement the tasks in order
+- **Iterate**: Use issue-plan again if scope changes

@@ -1,5 +1,5 @@
 ---
-name: bootstrap
+name: project-init
 description: "Bootstraps new projects with appropriate tech stack selection. Use when user wants to start a new project and needs help choosing and initializing the tech stack."
 argument-hint: "[project description or tech stack]"
 ---
@@ -8,7 +8,7 @@ argument-hint: "[project description or tech stack]"
 
 ## Overview
 
-Help users bootstrap new projects by recommending appropriate tech stacks and creating a minimal hello-world project that compiles and runs. This skill bridges the gap between specification (from specify skill) and implementation.
+Help users bootstrap new projects by recommending appropriate tech stacks and creating a minimal hello-world project that compiles and runs. This skill bridges the gap between specification (from spec-create skill) and implementation.
 
 **User's Intent:** $ARGUMENTS
 
@@ -31,13 +31,13 @@ Follow this process in order:
 1. Check if SPEC.md exists in the project root
 2. If SPEC.md does NOT exist:
    - Stop immediately
-   - Invoke the `specify` skill to create a specification
-   - Tell the user: "A specification is required before bootstrapping. Running specify skill..."
+   - Invoke the `spec-create` skill to create a specification
+   - Tell the user: "A specification is required before bootstrapping. Running spec-create skill..."
 3. If SPEC.md exists but contains `[NEEDS CLARIFICATION]` markers:
    - These are critical ambiguities that affect tech stack choice
    - Stop immediately
-   - Invoke the `specify` skill to resolve them
-   - Tell the user: "The specification has unresolved questions that affect tech stack choice. Running specify skill..."
+   - Invoke the `spec-create` skill to resolve them
+   - Tell the user: "The specification has unresolved questions that affect tech stack choice. Running spec-create skill..."
 
 ## Step 2: Understand the Project
 
@@ -52,7 +52,7 @@ Also check README.md for any existing architectural decisions or technology pref
 
 ## Step 3: Evaluate User Tech Stack Preference
 
-**If user provided a tech stack argument (e.g., "/bootstrap Python" or "/bootstrap React + Node.js"):**
+**If user provided a tech stack argument (e.g., "/project-init Python" or "/project-init React + Node.js"):**
 
 1. **Accept it as a strong preference** unless:
    - It clearly doesn't fit the project requirements
@@ -312,7 +312,7 @@ After bootstrapping the project:
 ### On Success
 - The project compiles and runs without errors
 - The placeholder test passes
-- **Action:** Invoke the `plan-milestones` skill to plan implementation milestones, then `arch-init` to define the system architecture
+- **Action:** Invoke the `milestone-plan-all` skill to plan implementation milestones, then `arch-init` to define the system architecture
 
 ### On Failure
 - **Logic bugs or syntax errors:**

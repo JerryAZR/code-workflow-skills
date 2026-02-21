@@ -23,8 +23,8 @@ This skill defines per-node capability requirements:
 
 - `milestones/MILESTONES.md` exists
 - `arch/ARCH_SUMMARY.md` exists with architecture nodes
-- Run `plan-milestones` first to create milestone plan
-- Run `arch-init` and `node-decompose` to create architecture
+- Run `milestone-plan-all` first to create milestone plan
+- Run `arch-init` and `arch-decompose` to create architecture
 
 ## Workflow
 
@@ -52,7 +52,7 @@ Read `milestones/MILESTONES.md` to find the milestone to initialize:
 - Update `milestones/MILESTONES.md` to reflect this change
 
 **Error Handling:**
-- If `milestones/MILESTONES.md` does not exist, inform: "No milestones found. Run `plan-milestones` first."
+- If `milestones/MILESTONES.md` does not exist, inform: "No milestones found. Run `milestone-plan-all` first."
 - If no milestone has "in-progress" or "planned" status, ask user to activate a milestone.
 
 ---
@@ -157,7 +157,7 @@ For each node with a contract for this milestone:
 | `atomic` | `planned` | Ready for implementation |
 
 **Error Handling:**
-- If any node has state `pending` → Stop and report: "Architecture not fully elaborated. Some nodes still have 'pending' state. Complete node-decompose first."
+- If any node has state `pending` → Stop and report: "Architecture not fully elaborated. Some nodes still have 'pending' state. Complete arch-decompose first."
 - If any node has state `prepared` → Stop and report: "Previous milestone incomplete. Some nodes still have 'prepared' state. Complete the current milestone (node-prep + node-build + milestone-wrapup) before starting a new one."
 
 This is the **contract invalidation** concept: when entering a new milestone, nodes that were implemented may now need to provide new capabilities, so their state reverts to `planned` for re-validation.

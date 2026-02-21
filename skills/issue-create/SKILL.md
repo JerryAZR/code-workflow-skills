@@ -1,5 +1,5 @@
 ---
-name: new-issue
+name: issue-create
 description: "Creates a feature request or bug report issue document. Use when the user wants to document a new feature request, bug report, or enhancement."
 argument-hint: "<feature-or-bug-description>"
 ---
@@ -123,8 +123,8 @@ After issue creation, determine the appropriate next action:
 
 ### If Issue Statement is Unclear
 - Requirements are ambiguous or missing critical details
-- **Action:** Run `clarify` skill to resolve ambiguities
+- **Action:** Run `spec-clarify` skill to resolve ambiguities
 
 ### If Issue is Clear
 - Requirements are well-defined and actionable
-- **Action:** Run `plan-issue` skill to break down the issue into tasks
+- **Action:** Run `issue-plan` skill to break down the issue into tasks

@@ -1,5 +1,5 @@
 ---
-name: clarify
+name: spec-clarify
 description: "Resolves ambiguous or underspecified areas in project specifications through targeted clarification questions. Use when a spec exists but has unclear decisions that affect architecture, roadmap, or core functionality."
 argument-hint: "[spec-file-path or clarification]"
 ---
@@ -198,16 +198,16 @@ After clarifying questions are answered, determine the appropriate next action:
 ### If Critical Ambiguities Remain
 - High-impact questions could not be answered
 - Missing information blocks architecture decisions
-- **Action:** Re-run **clarify** to continue addressing critical unknowns
+- **Action:** Re-run **spec-clarify** to continue addressing critical unknowns
 
 ### If Crystal Clear
 - All high-impact ambiguities resolved
 - Spec has clear scope, data model, and success criteria
-- **Action:** Continue to **bootstrap** skill for implementation
+- **Action:** Continue to **project-init** skill for implementation
 
 ### If Minor, Non-Blocking Ambiguities Remain
 - Only trivial or low-impact uncertainties left
 - Won't affect architecture or core functionality
 - **Action:** Present options to user:
   - Continue clarifying if they want
-  - Proceed to **bootstrap** if they're ready
+  - Proceed to **project-init** if they're ready

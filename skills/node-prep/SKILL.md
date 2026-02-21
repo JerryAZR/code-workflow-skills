@@ -115,7 +115,7 @@ Before generating anything, check if `src/<node_path>.py` already exists:
 - Generate new skeleton
 
 **Error Handling:**
-- If `arch/nodes/<NodePath>.md` does not exist, report: "Node contract undefined. Cannot prepare node without documentation at arch/nodes/<NodePath>.md. Run node-decompose first to create the node documentation."
+- If `arch/nodes/<NodePath>.md` does not exist, report: "Node contract undefined. Cannot prepare node without documentation at arch/nodes/<NodePath>.md. Run arch-decompose first to create the node documentation."
 - If `milestones/{milestone}/nodes/{NodePath}.md` does not exist, report: "Milestone capabilities undefined. Run milestone-init first to define node capabilities for this milestone."
 
 Generate:
@@ -332,4 +332,4 @@ Must always hold:
 After preparing this node:
 
 - **Implement logic**: Run `node-build` for this node to move it to "implemented"
-- **Add tests for modified**: Run `node-test-add` when all nodes are implemented
+- **Add tests for modified**: Run `milestone-test-add` when all nodes are implemented

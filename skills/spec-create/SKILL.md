@@ -1,5 +1,5 @@
 ---
-name: specify
+name: spec-create
 description: "Creates or updates project specifications. Use when the user wants to start a new project, add a feature, or describes a capability they wish they had."
 argument-hint: "[project or feature description]"
 ---
@@ -30,7 +30,7 @@ Complete these items in order:
 4. **Validate quality** -- check against the quality checklist
 5. **Present to user** -- highlight key sections, point out [NEEDS CLARIFICATION] markers
 6. **Get approval** -- ask "Does this capture what you're looking for?"
-7. **Transition to clarify** -- invoke clarify skill to resolve open questions
+7. **Transition to spec-clarify** -- invoke spec-clarify skill to resolve open questions
 
 ## The Process
 
@@ -53,7 +53,7 @@ Complete these items in order:
 **Filling gaps:**
 - Make informed guesses using context and industry standards
 - Document assumptions in the spec
-- Mark truly ambiguous areas with [NEEDS CLARIFICATION: question] for clarify phase
+- Mark truly ambiguous areas with [NEEDS CLARIFICATION: question] for spec-clarify phase
 - **LIMIT: Maximum 3 [NEEDS CLARIFICATION] markers in this spec**
 
 ## The Specification File
@@ -101,12 +101,12 @@ Success criteria must be:
 **Presentation:**
 - Present the spec to the user
 - Highlight: name, what it does, who it's for, success criteria
-- Point out any [NEEDS CLARIFICATION] markers -- these go to clarify phase
+- Point out any [NEEDS CLARIFICATION] markers -- these go to spec-clarify phase
 - Ask: "Does this capture what you're looking for?"
 
 **Next step:**
-- Upon user approval, invoke the clarify skill to resolve open questions
-- Do NOT invoke any implementation skill until clarify is complete
+- Upon user approval, invoke the spec-clarify skill to resolve open questions
+- Do NOT invoke any implementation skill until spec-clarify is complete
 
 ## Key Principles
 

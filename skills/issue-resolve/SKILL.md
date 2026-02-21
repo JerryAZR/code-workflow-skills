@@ -1,5 +1,5 @@
 ---
-name: resolve-issue
+name: issue-resolve
 description: "Executes issue resolution by processing tasks in batches with review checkpoints. Use when an issue document with task roadmap exists and needs to be resolved with TDD workflow."
 argument-hint: "[issue-number or issue-slug]"
 ---
@@ -17,7 +17,7 @@ This skill adapts batch execution patterns with human review checkpoints and TDD
 ## Prerequisites
 
 - Issue document exists in `issues/` directory
-- Issue document contains a task roadmap (from plan-issue skill)
+- Issue document contains a task roadmap (from issue-plan skill)
 
 ## Workflow
 
@@ -46,8 +46,8 @@ Find the latest issue by:
 4. Select first file that contains "Task Roadmap" section
 
 **Error Handling:**
-- If no issues exist, report: "No issues found. Create an issue first using new-issue skill."
-- If issue has no task roadmap, report: "Issue has no task roadmap. Run plan-issue skill first to generate tasks."
+- If no issues exist, report: "No issues found. Create an issue first using issue-create skill."
+- If issue has no task roadmap, report: "Issue has no task roadmap. Run issue-plan skill first to generate tasks."
 
 ---
 

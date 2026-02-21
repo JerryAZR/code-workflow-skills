@@ -1,5 +1,5 @@
 ---
-name: plan-milestones
+name: milestone-plan-all
 description: "Plans implementation milestones by ordering features from basic skeleton to highest priority. Use when a project needs to be broken down into manageable implementation phases."
 argument-hint: "[milestone focus or priority]"
 ---
@@ -191,6 +191,6 @@ Create `milestones/MILESTONES.md` (create `milestones/` directory if it doesn't 
 After milestone planning:
 
 - **Initialize architecture** - Run `arch-init` to create the architecture skeleton
-- **Begin decomposition** - Run `node-decompose` to decompose pending nodes relevant to Milestone 1
-- **Continue dispatching** - Re-run `node-decompose` to handle more pending nodes
+- **Begin decomposition** - Run `arch-decompose` to decompose pending nodes relevant to Milestone 1
+- **Continue dispatching** - Re-run `arch-decompose` to handle more pending nodes
 - **Refine if needed** - Adjust scope based on implementation experience

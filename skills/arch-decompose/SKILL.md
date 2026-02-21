@@ -1,10 +1,10 @@
 ---
-name: node-decompose
+name: arch-decompose
 description: "Decomposes architecture nodes into child components. Use for expanding any pending non-leaf node. If no node specified, auto-detects first pending node from ARCH_SUMMARY.md."
 argument-hint: "[node-name]"
 ---
 
-# Node Decompose
+# Architecture Decompose
 
 ## Overview
 
@@ -230,6 +230,6 @@ Node documentation created here defines **what the node IS**:
 
 ## Next Steps
 
-- **To continue decomposition**: Run `node-decompose` to find and decompose the next pending node relevant to current milestone
-- **To decompose specific node**: Run `node-decompose <node-name>` for a particular node (if pending)
+- **To continue decomposition**: Run `arch-decompose` to find and decompose the next pending node relevant to current milestone
+- **To decompose specific node**: Run `arch-decompose <node-name>` for a particular node (if pending)
 - **If all nodes decomposed**: When no more pending nodes exist, run `milestone-init` to begin the Implementation phase

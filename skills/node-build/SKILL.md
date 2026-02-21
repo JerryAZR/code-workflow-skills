@@ -172,7 +172,7 @@ No other transitions allowed in this skill.
 
 - Choose milestone priority
 - Prepare nodes (that's node-prep's job)
-- Decompose nodes (that's node-decompose's job)
+- Decompose nodes (that's arch-decompose's job)
 - Modify architecture structure (except minimal child extensions)
 - Weaken tests to make them pass
 
@@ -205,4 +205,4 @@ Must always hold:
 After building this node:
 
 - **Prepare next node**: Run `node-prep` to prepare another node for implementation
-- **Add tests for modified**: Run `node-test-add` when all nodes are implemented
+- **Add tests for modified**: Run `milestone-test-add` when all nodes are implemented

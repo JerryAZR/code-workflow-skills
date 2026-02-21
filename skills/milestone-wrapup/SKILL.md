@@ -43,8 +43,8 @@ Read `milestones/MILESTONES.md` to understand:
 If no milestone number provided, find the in-progress milestone (status: "in-progress").
 
 **Error Handling:**
-- If `milestones/MILESTONES.md` does not exist, report: "No milestone plan found. Create one using plan-milestones skill first."
-- If no in-progress milestone exists, report: "No milestone is currently in-progress. Use plan-milestones to create one."
+- If `milestones/MILESTONES.md` does not exist, report: "No milestone plan found. Create one using milestone-plan-all skill first."
+- If no in-progress milestone exists, report: "No milestone is currently in-progress. Use milestone-init to activate a milestone."
 
 ---
 
@@ -118,7 +118,7 @@ Check if integration tests exist and cover the declared features:
 1. Read `milestones/{index}-{name}/capabilities.md` to get the list of features to verify
 2. Check if `tests/integration/test_{milestone_name}.py` exists
 3. If integration tests don't exist or don't cover all features:
-   - Invoke `milestone-integration` to create them
+   - Invoke `milestone-integrate` to create them
    - After integration tests are created, re-run this self-check
 
 ### Handling Incomplete Work
@@ -203,7 +203,7 @@ Update `milestones/MILESTONES.md` to mark current milestone complete:
 - [ ] Architecture nodes reviewed
 - [ ] Node states are acceptable for milestone type
 - [ ] Runnable product verified
-- [ ] Integration tests exist and cover declared features (or milestone-integration invoked)
+- [ ] Integration tests exist and cover declared features (or milestone-integrate invoked)
 - [ ] Manual verification checklist presented to user (or user chose to skip)
 - [ ] Achievements documented in milestones/MILESTONES.md
 - [ ] Current milestone marked complete
@@ -214,4 +214,4 @@ Update `milestones/MILESTONES.md` to mark current milestone complete:
 
 - **Start next milestone**: Run `milestone-init` to define contracts for the next milestone
 - **All complete**: Run full test suite
-- **Blocked**: Continue implementation or adjust scope with `plan-milestones`
+- **Blocked**: Continue implementation or adjust scope with `milestone-plan-all`

@@ -1,10 +1,10 @@
 ---
-name: node-test-add
-description: "Implements additional tests for nodes with state 'modified'. Use when a parent node's implementation modified a child node's behavior, requiring additional test coverage before milestone-integration."
+name: milestone-test-add
+description: "Implements additional tests for nodes with state 'modified'. Use when a parent node's implementation modified a child node's behavior, requiring additional test coverage before milestone-integrate."
 argument-hint: "[node-name]"
 ---
 
-# Node Test Add
+# Milestone Test Add
 
 ## Overview
 
@@ -212,5 +212,5 @@ The node now has complete test coverage for its current milestone contract.
 ## Next Steps
 
 After adding tests for modified nodes:
-- **Integration tests**: Run `milestone-integration` to create integration tests
+- **Integration tests**: Run `milestone-integrate` to create integration tests
 - **Wrap up milestone**: Run `milestone-wrapup` for manual verification
