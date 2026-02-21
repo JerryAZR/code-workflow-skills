@@ -126,7 +126,7 @@ Do NOT generate:
 
 1. **Re-unit-test** - Don't re-test individual node logic (that's in unit tests)
 2. **Full system tests** - Don't test external services, databases, APIs
-3. **UI interaction tests** - Don't test clicks, renders (that's E2E/manual)
+3. **UI interaction tests** (unless framework doesn't support data validation) - Prefer validating data to be displayed rather than testing clicks/renders directly
 
 ---
 
