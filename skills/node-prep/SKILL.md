@@ -8,7 +8,11 @@ argument-hint: "[node-name]"
 
 ## Overview
 
-Prepare one implementation-ready node by generating its structural skeleton and failing functional tests, then transitioning the node state to "prepared".
+Prepare one implementation-ready node by generating failing functional tests for new capabilities and adding skeleton placeholders where needed, then transitioning the node state to "prepared".
+
+This skill handles both new nodes and existing nodes from past milestones:
+- **New nodes**: Create skeleton with NotImplementedError placeholders + failing tests
+- **Existing nodes**: Keep existing implementation, add placeholders only for new methods, add failing tests for new capabilities
 
 This skill does not implement logic — it only creates the foundation for implementation.
 
@@ -95,7 +99,20 @@ Read the node's documentation to understand the contract:
 1. First read `arch/nodes/<NodePath>.md` for structural contract (responsibility, input/output)
 2. Then read `milestones/{milestone}/nodes/{NodePath}.md` for milestone-specific capabilities
 
-Generate skeleton and tests based on BOTH sources.
+### Check for Existing Implementation
+
+Before generating anything, check if `src/<node_path>.py` already exists:
+
+**If file exists:**
+- Read the existing implementation
+- Compare with required interface from milestone capabilities
+- For each required method that does NOT exist:
+  - Add the method with `raise NotImplementedError`
+  - Do NOT modify existing methods
+- Preserve all existing logic intact
+
+**If file does NOT exist:**
+- Generate new skeleton
 
 **Error Handling:**
 - If `arch/nodes/<NodePath>.md` does not exist, report: "Node contract undefined. Cannot prepare node without documentation at arch/nodes/<NodePath>.md. Run node-decompose first to create the node documentation."
@@ -111,14 +128,16 @@ Generate:
 
 ### Strict Prohibitions
 
-- No logic implementation
+- **DO NOT REVERT** existing implementation from past milestones
+- No logic implementation for new methods beyond NotImplementedError
 - No partial logic
 - No wiring code
 - No child invocation
 - No temporary return values
 - No "pass for now"
 
-Skeleton must be structurally complete but behaviorally empty.
+For existing nodes: add NotImplementedError for NEW methods only.
+For new nodes: skeleton must be structurally complete but behaviorally empty.
 
 ---
 
@@ -144,6 +163,19 @@ assert MyClass is not None
 assert my_method is callable
 ```
 
+### Check for Existing Tests
+
+Before generating tests, check if `tests/<node_path>.py` already exists:
+
+**If test file exists:**
+- Read existing tests
+- Keep all existing passing tests intact
+- Add NEW tests for milestone capabilities that are NOT yet covered
+- New tests should FAIL because the new functionality is missing
+
+**If test file does NOT exist:**
+- Generate new test file following guidelines below
+
 ### Test Generation Guidelines
 
 Generate tests that:
@@ -159,11 +191,12 @@ Generate tests that:
 
 ### Test Requirements
 
-- Tests must **fail** (red state) because behavior is missing
+- **NEW tests** must **fail** (red state) because new behavior is missing
 - Tests must **fail** because behavior is wrong, NOT because exceptions are expected
 - Do not mock internal children
 - Do not inspect internals
 - Do not duplicate child testing
+- **Keep existing passing tests** - do not modify tests that already pass
 
 ### File Path Convention
 
@@ -287,12 +320,12 @@ Must always hold:
 
 - [ ] Node selected (provided or auto-detected)
 - [ ] Eligibility verified
-- [ ] Skeleton generated (structurally complete, NotImplementedError)
-- [ ] Real functional unit tests generated (not structural tests)
-- [ ] All tests FAIL because behavior is missing (not because exceptions expected)
-- [ ] No false-green tests exist (no passing tests in red state)
+- [ ] Existing implementation preserved (not reverted)
+- [ ] Skeleton generated for new methods (NotImplementedError for new methods only)
+- [ ] New failing tests generated for new capabilities
+- [ ] Existing passing tests kept intact
 - [ ] Node state updated to "prepared"
-- [ ] No logic implemented
+- [ ] No logic implemented for new methods beyond NotImplementedError
 
 ## Next Steps
 
