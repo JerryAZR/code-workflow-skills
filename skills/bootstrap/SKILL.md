@@ -293,6 +293,18 @@ Report success:
 - **Clear recommendations** - Help users understand trade-offs
 - **Testability first** - Always include testing framework in tech stack decisions; a project without tests is not production-ready
 
+## Workflow Checklist
+
+- [ ] Step 1: Check specification
+- [ ] Step 2: Understand the project
+- [ ] Step 3: Evaluate user tech stack preference
+- [ ] Step 4: Propose tech stack options
+- [ ] Step 5: Document tech stack choice
+- [ ] Step 6: Create minimal project
+- [ ] Step 7: Create minimal test
+- [ ] Step 8: Verify project runs
+- [ ] Step 9: Verify test runs
+
 ## Next Steps
 
 After bootstrapping the project:
