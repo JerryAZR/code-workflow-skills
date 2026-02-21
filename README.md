@@ -184,18 +184,6 @@ The toolkit uses a **stable-topology, evolving-contract** approach where:
 - **Behavioral scope gating** - Scope is controlled by limiting required features, not by hiding nodes
 - **Contract invalidation** - When entering a new milestone, node status reverts to `planned` for re-validation; code remains unchanged
 
-### Why This Approach
-
-Earlier versions controlled scope by deferring nodes (structural scope gating). This proved unstable for LLM agents because:
-- Partial trees create ambiguity — LLMs perceive "missing" branches as open obligations
-- Deferred nodes blur parent responsibilities
-- Absence-based control is weak for probabilistic agents
-
-The stable-topology approach separates structure from capability:
-- **Structural design** is fixed — all nodes exist from the start
-- **Capability evolution** is incremental — milestones define what features each node must provide
-- **Contract invalidation** — when entering a new milestone, node status reverts to `planned` for re-validation, but code remains unchanged
-
 ---
 
 ## Usage
