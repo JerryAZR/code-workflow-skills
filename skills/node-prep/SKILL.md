@@ -1,6 +1,6 @@
 ---
 name: node-prep
-description: "Prepares an implementation-ready node by generating structural skeleton and failing tests. Use when a node with state 'planned' is ready for implementation (after milestone-init)."
+description: "Use when milestone-init has been run and nodes have state 'planned' - generates skeleton and failing tests. Requires milestone-init first to set up node contracts."
 argument-hint: "[node-name]"
 ---
 

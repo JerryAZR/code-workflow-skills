@@ -27,8 +27,9 @@ Follow this process in order:
 2. **Review Architecture Progress** - Check node states in ARCH_SUMMARY.md
 3. **Verify Deliverables** - Confirm runnable product or usable library exists
 4. **Validate Completeness** - Ensure all required work is done
-5. **Document Achievements** - Record completed work in milestones/MILESTONES.md (only after validation passes)
-6. **Transition Milestones** - Mark current complete, next active
+5. **Manual Verification** - Present checklist for user to verify features (REQUIRED)
+6. **Document Achievements** - Record completed work in milestones/MILESTONES.md (only after validation passes)
+7. **Transition Milestones** - Mark current complete, next active
 
 ---
 
@@ -136,7 +137,7 @@ ls <dist-folder>/
 
 ---
 
-## Step 4: Validate Completeness
+## Step 4a: Self-Check
 
 Perform final checks before marking milestone complete:
 
@@ -156,6 +157,64 @@ Perform final checks before marking milestone complete:
 
 **If intentionally incomplete (scope adjustment):**
 - May proceed with wrap-up if scope was adjusted
+
+---
+
+## Step 4b: Manual Verification
+
+Present the user with a manual verification checklist.
+
+**If user wants to skip:** Respect their choice and proceed to Step 5.
+
+### Generate Startup Command
+
+Determine how to start/run the application:
+
+| Project Type | Command |
+|--------------|---------|
+| Python CLI | `python -m <module>` or `python <entrypoint>.py` |
+| Node.js CLI | `node <entrypoint>.js` or `npm run start` |
+| Web App | `npm run dev` or `python -m flask run` |
+| GUI App | Run the built executable |
+| Library | N/A (no startup needed) |
+
+### Extract Features
+
+Read the milestone scope from `milestones/MILESTONES.md` to list what features were implemented.
+
+### Present Checklist
+
+Show the user:
+
+```markdown
+## Manual Verification Checklist
+
+### How to Start the App
+
+```
+[command to run]
+```
+
+### Features to Verify
+
+- [ ] Feature 1: Description
+- [ ] Feature 2: Description
+- [ ] ...
+
+### Instructions
+
+1. Start the application using the command above
+2. Manually test each feature in the checklist
+3. Mark each feature as verified or note any issues
+4. Report back when verification is complete
+```
+
+Wait for the user to complete manual verification before proceeding.
+
+**If user reports issues:**
+- Do NOT proceed to document achievements
+- Report what needs fixing
+- Suggest: Continue implementation or adjust milestone scope
 
 ---
 
@@ -265,6 +324,7 @@ After completing a milestone:
 - [ ] Architecture nodes reviewed
 - [ ] Node states are acceptable for milestone type
 - [ ] Runnable product verified
+- [ ] Manual verification checklist presented to user (or user chose to skip)
 - [ ] Achievements documented in milestones/MILESTONES.md
 - [ ] Current milestone marked complete
 - [ ] Next milestone marked active (if exists)
