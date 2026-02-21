@@ -74,10 +74,11 @@ For the node being decomposed:
 | Status | Meaning |
 |--------|--------|
 | pending | Node awaiting decomposition |
-| deferred | Node decomposition postponed to future milestone |
 | decomposed | Has child nodes defined |
 | atomic | Single-focus responsibility, should not decompose further |
 | implemented | Logic ready, tests passed |
+
+Note: In the stable-topology model, all nodes exist from the start. No nodes are deferred.
 
 ### Decision Criteria
 

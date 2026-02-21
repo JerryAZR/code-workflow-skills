@@ -16,7 +16,7 @@ This skill ensures milestone completion follows a consistent process with proper
 
 ## Prerequisites
 
-- `MILESTONES.md` exists with milestone definitions
+- `milestones/MILESTONES.md` exists with milestone definitions
 - `arch/ARCH_SUMMARY.md` exists with node states (if architecture exists)
 
 ## Workflow
@@ -27,14 +27,14 @@ Follow this process in order:
 2. **Review Architecture Progress** - Check node states in ARCH_SUMMARY.md
 3. **Verify Deliverables** - Confirm runnable product or usable library exists
 4. **Validate Completeness** - Ensure all required work is done
-5. **Document Achievements** - Record completed work in MILESTONES.md (only after validation passes)
+5. **Document Achievements** - Record completed work in milestones/MILESTONES.md (only after validation passes)
 6. **Transition Milestones** - Mark current complete, next active
 
 ---
 
 ## Step 1: Read Milestone Plan
 
-Read `MILESTONES.md` to understand:
+Read `milestones/MILESTONES.md` to understand:
 
 1. **Current milestone** - Which milestone is in-progress (or specified)
 2. **Milestone scope** - What features are included
@@ -44,7 +44,7 @@ Read `MILESTONES.md` to understand:
 If no milestone number provided, find the in-progress milestone (status: "in-progress").
 
 **Error Handling:**
-- If MILESTONES.md does not exist, report: "No milestone plan found. Create one using plan-milestones skill first."
+- If `milestones/MILESTONES.md` does not exist, report: "No milestone plan found. Create one using plan-milestones skill first."
 - If no in-progress milestone exists, report: "No milestone is currently in-progress. Use plan-milestones to create one."
 
 ---
@@ -60,24 +60,11 @@ For each node relevant to the current milestone, verify the state:
 | State | Meaning | Acceptable for Wrap-up |
 |-------|---------|------------------------|
 | `implemented` | Completed and tested | Yes |
-| `stubbed` | Placeholder exists | Yes (allowed in some milestones) |
-| `deferred` | Not in this milestone | Yes (allowed in some milestones) |
-| `prepared` | Skeleton ready | **No** - needs implementation |
+| `prepared` | Skeleton ready with failing tests | **No** - needs implementation |
 | `atomic` | Not yet started | **No** - needs work |
 | `decomposed` | Not yet decomposed | **No** - needs work |
 
-### Milestone-Specific Rules
-
-Some milestones may intentionally have incomplete features:
-
-- **Skeleton milestones**: Nodes may be `stubbed` or `deferred`
-- **Feature milestones**: All relevant nodes should be `implemented`
-- **Polish milestones**: All nodes should be `implemented`
-
-**Acceptable states per milestone type:**
-- Skeleton: `implemented`, `stubbed`, `deferred`
-- Feature: `implemented`, (minor) `stubbed`
-- Polish: `implemented` only
+Note: The new model uses stable topology - all nodes exist. Scope is controlled by each node's milestone contract, not by node states.
 
 ---
 
@@ -178,7 +165,7 @@ Perform final checks before marking milestone complete:
 
 Only document achievements AFTER validation passes.
 
-Update `MILESTONES.md` with the completion summary:
+Update `milestones/MILESTONES.md` with the completion summary:
 
 ### Add Completion Section
 
@@ -196,7 +183,6 @@ Append to the current milestone:
 - [List any notable improvements]
 
 #### Known Limitations
-- [Any features intentionally deferred]
 - [Any known issues]
 - [Technical debt notes]
 
@@ -223,7 +209,7 @@ Append to the current milestone:
 
 ## Step 6: Transition Milestones
 
-Update `MILESTONES.md` to mark completion:
+Update `milestones/MILESTONES.md` to mark completion:
 
 ### Mark Current Milestone Complete
 
@@ -246,17 +232,15 @@ Update `MILESTONES.md` to mark completion:
 **Status:** complete
 ```
 
-### Reset Node States for Next Milestone
+### Contract Invalidation for Next Milestone
 
-After activating the next milestone, reset deferred/stubbed nodes to "pending" for re-review:
+In the stable-topology, evolving-contract model, node contracts change per milestone. After completing a milestone:
 
 1. Read `arch/ARCH_SUMMARY.md`
-2. For each node with state `deferred` or `stubbed`, change to `pending`
-3. Write updated ARCH_SUMMARY.md
+2. All nodes remain in their current state (`implemented`, `prepared`, etc.)
+3. The next `milestone-init` will define new contracts for each node
 
-**Rationale:** Nodes deferred or stubbed in one milestone need fresh review in the next milestone to determine their fate (implement, defer again, or remove).
-
-**Important:** Do NOT reset nodes that are `implemented` - those remain implemented.
+**Rationale:** Architecture topology is stable - nodes don't get deferred. Each milestone defines what capabilities each node must provide. The contract expansion drives re-validation, not structural changes.
 
 ---
 
@@ -285,10 +269,10 @@ After activating the next milestone, reset deferred/stubbed nodes to "pending" f
 - [ ] Architecture nodes reviewed
 - [ ] Node states are acceptable for milestone type
 - [ ] Runnable product verified
-- [ ] Achievements documented in MILESTONES.md
+- [ ] Achievements documented in milestones/MILESTONES.md
 - [ ] Current milestone marked complete
 - [ ] Next milestone marked active (if exists)
-- [ ] Deferred/stubbed nodes reset to pending for next milestone
+- [ ] Nodes ready for next milestone's contract (via milestone-init)
 
 ---
 
@@ -297,7 +281,8 @@ After activating the next milestone, reset deferred/stubbed nodes to "pending" f
 After milestone wrap-up:
 
 ### If More Milestones Remain
-- **Continue**: Run `node-dispatch` to start next milestone work
+- **Define contracts**: Run `milestone-init` to derive node capabilities for next milestone
+- **Implement**: Run `node-prep` and `node-build` for each node
 
 ### If All Complete
 - **Celebrate**: Project milestone completion

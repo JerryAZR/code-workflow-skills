@@ -32,7 +32,7 @@ The workflow enforces strict TDD discipline and prevents context overload by kee
 |-------|-------------|
 | [arch-init](skills/arch-init/) | Initializes architecture documentation with root node |
 | [node-decompose](skills/node-decompose/) | Decomposes architecture nodes into child components |
-| [node-dispatch](skills/node-dispatch/) | Selects next pending node relevant to current milestone |
+| [milestone-init](skills/milestone-init/) | Derives per-node feature requirements for current milestone |
 | [node-prep](skills/node-prep/) | Prepares nodes with skeleton code and failing tests |
 | [node-build](skills/node-build/) | Implements prepared nodes following TDD workflow |
 | [milestone-wrapup](skills/milestone-wrapup/) | Verifies milestone completion and transitions to next milestone |
@@ -58,16 +58,18 @@ flowchart TB
         S4 --> S5["/arch-init"]
     end
 
-    subgraph Architecture["Architecture (Per Milestone)"]
-        A1["/node-dispatch"] --> A2["/node-decompose"]
-        A2 --> A1
+    subgraph Architecture["Architecture (One-time)"]
+        A1["/node-decompose"] --> A2{More Nodes?}
+        A2 -->|Yes| A1
+        A2 -->|No| A3["/milestone-init"]
     end
 
-    subgraph Implementation["Implementation"]
-        I1["/node-prep"] --> I2["/node-build"]
-        I2 --> I3{More Nodes?}
-        I3 -->|Yes| I1
-        I3 -->|No| I4["/milestone-wrapup"]
+    subgraph Implementation["Implementation (Per Milestone)"]
+        I1["/milestone-init"] --> I2["/node-prep"]
+        I2 --> I3["/node-build"]
+        I3 --> I4{More Nodes?}
+        I4 -->|Yes| I2
+        I4 -->|No| I5["/milestone-wrapup"]
     end
 
     subgraph Issue["Issue Management (Optional)"]
@@ -77,9 +79,9 @@ flowchart TB
 
     Setup --> Architecture
     Architecture -->|All nodes decomposed| Implementation
-    Implementation --> I4
-    I4 -->|More milestones| Architecture
-    I4 -->|All complete| Done[("Done")]
+    Implementation --> I5
+    I5 -->|More milestones| Architecture
+    I5 -->|All complete| Done[("Done")]
     Implementation -.->|User requests| Issue
 
     style Setup fill:#e1f5fe
@@ -101,28 +103,29 @@ specify → clarify → bootstrap → plan-milestones → arch-init
 4. **plan-milestones**: Break into manageable milestones
 5. **arch-init**: Initialize architecture documentation
 
-### Architecture (Per Milestone)
+### Architecture (One-time)
 
 ```
-node-dispatch → node-decompose (repeat)
+node-decompose (repeat until full tree) → milestone-init
 ```
 
-1. **node-dispatch**: Find next pending node for current milestone
-2. **node-decompose**: Decompose node into children
+1. **node-decompose**: Decompose nodes until architecture tree is complete
+2. **milestone-init**: Derive per-node feature requirements for current milestone
 
-Repeat until current milestone's architecture is fully decomposed.
+Run once after `arch-init` to fully elaborate the architecture. Use `milestone-init` before each new milestone.
 
-### Implementation
+### Implementation (Per Milestone)
 
 ```
-node-prep → node-build (repeat for each node) → milestone-wrapup
+milestone-init → node-prep → node-build (repeat) → milestone-wrapup
 ```
 
-1. **node-prep**: Generate skeleton + failing tests (TDD - red state)
-2. **node-build**: Implement to make tests pass (green state)
-3. **milestone-wrapup**: Verify completion and transition to next milestone
+1. **milestone-init**: Define what each node must provide for this milestone
+2. **node-prep**: Generate skeleton + failing tests (TDD - red state)
+3. **node-build**: Implement to make tests pass (green state)
+4. **milestone-wrapup**: Verify completion and transition to next milestone
 
-When milestone is complete, loop back to Architecture for next milestone.
+When milestone is complete, run `milestone-init` for the next milestone.
 
 ### Issue Management (Optional)
 
@@ -186,6 +189,9 @@ Invoke skills directly using `/skill-name`:
 /specify build a todo app
 /bootstrap Python
 /plan-milestones MVP first
+/arch-init
+/node-decompose
+/milestone-init
 /node-prep
 /node-build
 /milestone-wrapup

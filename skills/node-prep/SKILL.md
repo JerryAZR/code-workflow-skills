@@ -1,6 +1,6 @@
 ---
 name: node-prep
-description: "Prepares an implementation-ready node by generating structural skeleton and failing tests. Use when a node with state 'atomic' or 'decomposed' is ready for implementation."
+description: "Prepares an implementation-ready node by generating structural skeleton and failing tests. Use when a node with state 'planned' is ready for implementation (after milestone-init)."
 argument-hint: "[node-name]"
 ---
 
@@ -18,22 +18,22 @@ If no node-name provided, find an eligible node automatically.
 
 ## Prerequisites
 
-- `arch/ARCH_SUMMARY.md` exists with decomposed architecture
-- Nodes with state `atomic` or `decomposed` exist
-- Run `node-dispatch` first to decompose nodes
+- `arch/ARCH_SUMMARY.md` exists with architecture tree
+- Nodes with state `planned` exist (set by `milestone-init`)
+- Run `milestone-init` first to derive node contracts
 
 ## Node State Model
 
 | State | Meaning |
 |-------|---------|
-| `atomic` | Leaf node scheduled for this milestone |
-| `decomposed` | Non-leaf node scheduled for this milestone |
+| `pending` | Awaiting contract definition (architecture phase) |
+| `atomic` | Leaf node in architecture (architecture phase) |
+| `decomposed` | Non-leaf node in architecture (architecture phase) |
+| `planned` | Node has milestone contract, awaiting preparation |
 | `prepared` | Skeleton + failing tests created |
 | `implemented` | Logic implemented and tests passing |
-| `deferred` | Not part of milestone, untouched |
-| `stubbed` | Not part of milestone, stub exists |
 
-**Note:** State `pending` must not exist during implementation phase.
+**Note:** After `milestone-init`, nodes with contracts are set to `planned`. This skill prepares `planned` nodes.
 
 ## Workflow
 
@@ -51,7 +51,7 @@ Follow this process in order:
 
 ### If node-name provided:
 
-Verify the node exists in `arch/ARCH_SUMMARY.md` and has state `atomic` or `decomposed`.
+Verify the node exists in `arch/ARCH_SUMMARY.md` and has state `planned`.
 
 ### If no node-name provided:
 
@@ -59,7 +59,7 @@ Find eligible nodes:
 
 1. Parse `arch/ARCH_SUMMARY.md`
 2. Collect nodes where:
-   - State ∈ {atomic, decomposed}
+   - State == `planned`
    - Readiness condition satisfied (see Step 2)
 3. Select any eligible node (non-deterministic)
 
@@ -73,16 +73,15 @@ Find eligible nodes:
 Confirm the selected node can be prepared:
 
 **Eligibility Rules:**
-- State ∈ {atomic, decomposed}
+- State == `planned`
 - AND:
   - Node has no children (atomic)
-  - OR all children have state == implemented
+  - OR all children have state == `implemented`
 
 **Hard Refusal Conditions:**
-- Selected node has child not `implemented` (if decomposed)
-- Selected node is `deferred` or `stubbed`
+- Selected node has child not `implemented` (if has children)
 - Selected node is already `prepared` or `implemented`
-- Node contract is undefined (no node documentation)
+- No nodes with state `planned` exist (run `milestone-init` first)
 
 **Error Handling:**
 - If node fails eligibility, select another eligible node or report failure
@@ -245,7 +244,7 @@ The skill must NOT:
 - Implement logic
 - Modify architecture structure
 - Expand subtree
-- Alter deferred/stubbed nodes
+- Modify node contracts (that's milestone-init's job)
 - Move nodes to "implemented" (that's node-build's job)
 
 ### What Future Work Can Do
@@ -278,7 +277,7 @@ Must always hold:
 
 1. No node implemented before its children
 2. No node prepared before its children are implemented (if decomposed)
-3. Deferred/stubbed nodes remain untouched
+3. All nodes are part of architecture (no deferred/stubbed)
 4. Tests must exist before implementation
 5. Architecture is immutable during implementation phase
 

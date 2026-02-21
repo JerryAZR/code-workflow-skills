@@ -31,7 +31,7 @@ Follow this process in order:
 3. **Clarify priorities** - Ask user if feature priorities are unclear
 4. **Define milestone scope** - Limit each milestone to 3-5 features maximum
 5. **Order milestones** - Skeleton first, then by priority descending
-6. **Document milestone plan** - Create `MILESTONES.md` in project root
+6. **Document milestone plan** - Create `milestones/MILESTONES.md`
 
 ## Step 1: Analyze Specification
 
@@ -96,7 +96,7 @@ Order by:
 
 ## Step 6: Document Milestone Plan
 
-Create `MILESTONES.md` in the project root:
+Create `milestones/MILESTONES.md` (create `milestones/` directory if it doesn't exist):
 
 **Important:** Mark the first milestone as "in-progress" to signal that work can begin immediately:
 
@@ -190,7 +190,7 @@ Create `MILESTONES.md` in the project root:
 - [ ] Each milestone has 3-5 features
 - [ ] Milestone 1 is the skeleton
 - [ ] Ordering respects dependencies
-- [ ] MILESTONES.md created in project root
+- [ ] milestones/MILESTONES.md created
 
 ## Next Steps
 

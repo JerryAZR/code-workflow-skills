@@ -31,9 +31,8 @@ If no node-name provided, find an eligible prepared node automatically.
 | `decomposed` | Non-leaf node scheduled for this milestone |
 | `prepared` | Skeleton + failing tests created |
 | `implemented` | Logic implemented and tests passing |
-| `modified` | Implemented, but extended without full TDD |
-| `deferred` | Not part of milestone, untouched |
-| `stubbed` | Not part of milestone, stub exists |
+
+Note: The stable-topology model uses these states only. No deferred/stubbed states exist.
 
 ## Workflow
 
@@ -64,7 +63,7 @@ Find eligible nodes:
 
 **Refuse if:**
 - No prepared node exists
-- Any child is not "implemented" or "deferred"
+- Any child is not "implemented"
 
 **Error Handling:**
 - If no eligible nodes exist, report: "No eligible nodes for building. Run node-prep first to prepare a node. If all nodes are already implemented, run milestone-wrapup to complete the milestone."
@@ -106,30 +105,6 @@ Implement minimal logic required to pass tests.
 - Orchestrate children only
 - Do not duplicate child logic
 - Use child public interfaces only
-
----
-
-## Deferred Child Handling Rule
-
-If a prepared or decomposed node has a child in "deferred" state:
-
-**The child must be stubbed before parent implementation proceeds.**
-
-Stub must:
-
-- Match declared public interface
-- Contain no real logic
-- Return deterministic placeholder values
-- Not introduce side effects
-
-Transition: `deferred → stubbed`
-
-Parent may then depend on stubbed interface.
-
-**Important Constraints:**
-- Stub must not simulate real behavior
-- Stub must not accidentally satisfy milestone-level logic
-- Stub exists only to satisfy structural completeness
 
 ---
 
@@ -187,11 +162,6 @@ If child extension occurred:
 ```
 child: implemented → modified
 parent: prepared → implemented
-```
-
-If the child was deferred and has been stubbed:
-```
-child: deferred → stubbed
 ```
 
 No other transitions allowed in this skill.

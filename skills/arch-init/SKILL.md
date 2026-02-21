@@ -155,5 +155,5 @@ Add other sections as needed for this node.
 ## Next Steps
 
 After initialization:
-- **If MILESTONES.md exists**: Run `node-dispatch` to decompose pending nodes relevant to current milestone
-- **If no MILESTONES.md**: Run `plan-milestones` first, then `node-dispatch`
+- **If milestones/MILESTONES.md exists**: Run `node-decompose` to elaborate the architecture tree
+- **If no milestones/MILESTONES.md**: Run `plan-milestones` first, then `node-decompose`
