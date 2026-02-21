@@ -174,10 +174,6 @@ Create a subdirectory `arch/nodes/<ParentNode>/` and add child node docs there:
 ```markdown
 # <ChildNodeName>
 
-## Status
-
-pending
-
 ## Responsibility
 
 <What this child owns.>

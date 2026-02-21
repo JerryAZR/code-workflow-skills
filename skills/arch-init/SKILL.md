@@ -113,10 +113,6 @@ Create `arch/nodes/<RootNodeName>.md`:
 ```markdown
 # <RootNodeName>
 
-## Status
-
-pending
-
 ## Responsibility
 
 <What this node owns at the system level.>
