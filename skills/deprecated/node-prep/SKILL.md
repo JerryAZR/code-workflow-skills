@@ -31,7 +31,7 @@ Before invoking this skill, ensure:
 
 1. **Architecture exists** - `arch/ARCH_SUMMARY.md` must exist with the node hierarchy (invoke `root-architect`)
 2. **Node documentation exists** - The target node must have a documentation file at `arch/nodes/<NodeName>.md` (or `arch/<RootNodeName>.md` for root node)
-3. **Tech stack is chosen** - The project must have a documented tech stack in SPEC.md (invoke `bootstrap`)
+3. **Tech stack is chosen** - The project must have a documented tech stack in SPEC.md (invoke `project-init`)
 4. **Node status is stub** - The node must be in "stub" status, meaning it needs implementation
 
 ## Hard Gates

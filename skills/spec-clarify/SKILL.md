@@ -193,7 +193,7 @@ After clarifying questions are answered, determine the appropriate next action:
 
 ### If Clarifications Greatly Alter Requirements
 - The answers change core scope, user scenarios, or data model significantly
-- **Action:** Re-run the **specify** skill to update the specification with the new understanding
+- **Action:** Re-run the **spec-create** skill to update the specification with the new understanding
 
 ### If Critical Ambiguities Remain
 - High-impact questions could not be answered
