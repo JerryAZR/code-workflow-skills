@@ -212,4 +212,5 @@ The node now has complete test coverage for its current milestone contract.
 ## Next Steps
 
 After adding tests for modified nodes:
-- **Wrap up milestone**: When all nodes are implemented, run `milestone-wrapup`
+- **Integration tests**: Run `milestone-integration` to create integration tests
+- **Wrap up milestone**: Run `milestone-wrapup` for manual verification

@@ -41,6 +41,7 @@ The workflow enforces strict TDD discipline and prevents context overload by kee
 | [node-prep](skills/node-prep/) | Prepares nodes with skeleton code and failing tests |
 | [node-build](skills/node-build/) | Implements prepared nodes following TDD workflow |
 | [node-test-add](skills/node-test-add/) | Adds tests for modified nodes before milestone wrapup |
+| [milestone-integration](skills/milestone-integration/) | Creates integration tests to verify features work together |
 | [milestone-wrapup](skills/milestone-wrapup/) | Verifies milestone completion and transitions to next milestone |
 
 ### Deprecated
@@ -82,7 +83,8 @@ flowchart TB
         I3 --> I4{More Nodes?}
         I4 -->|Yes| I2
         I4 -->|No| I5["/node-test-add"]
-        I5 --> I6["/milestone-wrapup"]
+        I5 --> I6["/milestone-integration"]
+        I6 --> I7["/milestone-wrapup"]
     end
 
     subgraph Issue["Issue Management (Optional)"]
@@ -128,14 +130,15 @@ Run once after Setup to fully elaborate the architecture.
 ### Implementation (Per Milestone)
 
 ```
-milestone-init → node-prep → node-build (repeat) → node-test-add → milestone-wrapup
+milestone-init → node-prep → node-build (repeat) → node-test-add → milestone-integration → milestone-wrapup
 ```
 
 1. **milestone-init**: Define what each node must provide for this milestone
 2. **node-prep**: Generate skeleton + failing tests (TDD - red state)
 3. **node-build**: Implement to make tests pass (green state)
 4. **node-test-add**: Add tests for nodes modified during implementation (should pass)
-5. **milestone-wrapup**: Verify completion and transition to next milestone
+5. **milestone-integration**: Create integration tests to verify features work together
+6. **milestone-wrapup**: Verify completion and transition to next milestone
 
 When milestone is complete, run `milestone-init` for the next milestone.
 
