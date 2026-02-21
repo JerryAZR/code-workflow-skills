@@ -91,26 +91,47 @@ For each node, analyze:
 
 ### Output Format
 
-For each node, document:
+Create per-node capability documents at `milestones/{name}/nodes/{NodePath}.md`:
 
-```
-## {NodeName}
+**File:** `milestones/{name}/nodes/{NodeName}.md`
 
-**Base Responsibility:** See arch/nodes/{NodePath}.md
+```markdown
+# {NodeName} - Milestone {N}
 
-**Milestone Contract:**
+**Base Responsibility:** See ../../arch/nodes/{NodePath}.md
+
+## Milestone Contract
+
 - {capability 1}
 - {capability 2}
-- ...
 
-**Supported Features:**
+## Supported Features
+
 - {feature from milestone}
 
-**Expected Tests:**
+## Expected Tests
+
 - {test that verifies capability}
 ```
 
-The capabilities.md **extends** arch/nodes/ with behavioral requirements — it does NOT replace the structural contract.
+**Overview file:** `milestones/{name}/capabilities.md`
+
+```markdown
+# {Milestone Name} - Node Capabilities
+
+## Overview
+
+**Milestone:** {index}. {name}
+**Status:** in-progress
+
+## Node Capabilities
+
+| Node | File |
+|------|------|
+| {NodeName} | nodes/{NodeName}.md |
+```
+
+Each per-node file **extends** arch/nodes/ with behavioral requirements — it does NOT replace the structural contract.
 
 ### Decision Rules
 
@@ -169,12 +190,18 @@ After implementation, each node's tests should verify these capabilities.
 ### Directory Structure
 
 If `milestones/` directory doesn't exist, create it:
+
 ```
 milestones/
-  MILESTONES.md
-  {index}-{name}/
-    capabilities.md
+├── MILESTONES.md
+└── {index}-{name}/
+    ├── capabilities.md          # Overview + index
+    └── nodes/
+        ├── {NodeName}.md       # Per-node capabilities
+        └── {NodeName}.md
 ```
+
+Mirror the `arch/nodes/` directory structure for easy reference.
 
 ---
 
@@ -213,7 +240,8 @@ Capabilities.md defines **what the node MUST DO** for this milestone:
 - [ ] All nodes gathered from ARCH_SUMMARY.md
 - [ ] Each node has documented capabilities
 - [ ] Node states updated to "planned" for contract expansion
-- [ ] Capabilities document created at milestones/{index}-{name}/capabilities.md
+- [ ] Capabilities overview created at milestones/{index}-{name}/capabilities.md
+- [ ] Per-node capabilities created at milestones/{index}-{name}/nodes/{NodeName}.md
 
 ## Next Steps
 
