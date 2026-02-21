@@ -64,8 +64,6 @@ For each node relevant to the current milestone, verify the state:
 | `atomic` | Not yet started | **No** - needs work |
 | `decomposed` | Not yet decomposed | **No** - needs work |
 
-Note: The new model uses stable topology - all nodes exist. Scope is controlled by each node's milestone contract, not by node states.
-
 ---
 
 ## Step 3: Verify Deliverables
@@ -234,13 +232,11 @@ Update `milestones/MILESTONES.md` to mark completion:
 
 ### Contract Invalidation for Next Milestone
 
-In the stable-topology, evolving-contract model, node contracts change per milestone. After completing a milestone:
+After completing a milestone:
 
 1. Read `arch/ARCH_SUMMARY.md`
 2. All nodes remain in their current state (`implemented`, `prepared`, etc.)
 3. The next `milestone-init` will define new contracts for each node
-
-**Rationale:** Architecture topology is stable - nodes don't get deferred. Each milestone defines what capabilities each node must provide. The contract expansion drives re-validation, not structural changes.
 
 ---
 

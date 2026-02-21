@@ -78,8 +78,6 @@ For the node being decomposed:
 | atomic | Single-focus responsibility, should not decompose further |
 | implemented | Logic ready, tests passed |
 
-Note: In the stable-topology model, all nodes exist from the start. No nodes are deferred.
-
 ### Decision Criteria
 
 Mark node as **atomic** if it has a clear, single-focus responsibility that makes no sense to decompose further:
@@ -224,5 +222,5 @@ Add other sections only if clearly needed — details will be refined during imp
 
 ## Next Steps
 
-- **To continue decomposition**: Run `node-dispatch` to find and decompose the next pending node relevant to current milestone
-- **To decompose specific node**: Run `node-dispatch <node-name>` for a particular node (if pending)
+- **To continue decomposition**: Run `node-decompose` to find and decompose the next pending node relevant to current milestone
+- **To decompose specific node**: Run `node-decompose <node-name>` for a particular node (if pending)

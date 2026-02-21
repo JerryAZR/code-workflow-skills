@@ -175,13 +175,6 @@ Create `milestones/MILESTONES.md` (create `milestones/` directory if it doesn't 
 - Create test plans (defer to node-prep)
 - Implement any code
 
-### What Future Work Can Do
-
-- Refine milestone scope based on implementation experience
-- Adjust ordering based on discovered dependencies
-- Add new milestones as requirements evolve
-- Map milestones to architecture nodes (via node-dispatch workflow)
-
 ## Success Criteria
 
 - [ ] SPEC.md analyzed completely
@@ -197,6 +190,6 @@ Create `milestones/MILESTONES.md` (create `milestones/` directory if it doesn't 
 After milestone planning:
 
 - **Initialize architecture** - Run `arch-init` to create the architecture skeleton
-- **Begin decomposition** - Run `node-dispatch` to decompose pending nodes relevant to Milestone 1
-- **Continue dispatching** - Re-run `node-dispatch` to handle more pending nodes
+- **Begin decomposition** - Run `node-decompose` to decompose pending nodes relevant to Milestone 1
+- **Continue dispatching** - Re-run `node-decompose` to handle more pending nodes
 - **Refine if needed** - Adjust scope based on implementation experience

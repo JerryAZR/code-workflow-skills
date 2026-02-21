@@ -247,12 +247,6 @@ The skill must NOT:
 - Modify node contracts (that's milestone-init's job)
 - Move nodes to "implemented" (that's node-build's job)
 
-### What Future Work Can Do
-
-- Implement logic after tests pass
-- Run node-build to move to implemented
-- Prepare multiple nodes in parallel
-
 ---
 
 ## Parallelism Model
@@ -277,7 +271,7 @@ Must always hold:
 
 1. No node implemented before its children
 2. No node prepared before its children are implemented (if decomposed)
-3. All nodes are part of architecture (no deferred/stubbed)
+3. All nodes are part of architecture
 4. Tests must exist before implementation
 5. Architecture is immutable during implementation phase
 

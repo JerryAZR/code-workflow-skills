@@ -9,7 +9,7 @@ description: "Initializes architecture documentation with YAML headers and root 
 
 Initialize the architecture documentation by creating `arch/ARCH_SUMMARY.md` with proper YAML headers and root node definition. This establishes the foundation for subsequent node decomposition.
 
-This skill focuses only on initialization — not decomposition. After initialization, `node-dispatch` will automatically find and decompose the pending root node.
+This skill focuses only on initialization — not decomposition. After initialization, run `node-decompose` to decompose the pending root node.
 
 ## Prerequisites
 
@@ -101,7 +101,7 @@ For detailed requirements, see [SPEC.md](../SPEC.md).
 
 ## Next Steps
 
-- Run `node-dispatch` to begin decomposing the pending root node
+- Run `node-decompose` to begin decomposing the pending root node
 ```
 
 ---
@@ -142,7 +142,7 @@ Add other sections as needed for this node.
 
 ## Constraints
 
-- Do NOT decompose into children — use `node-dispatch` for that
+- Do NOT decompose into children — use `node-decompose` for that
 - Do NOT define implementation details
 
 ## Success Criteria

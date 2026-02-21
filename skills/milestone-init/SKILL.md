@@ -10,7 +10,7 @@ argument-hint: "[milestone-name]"
 
 Derives and documents what each architecture node must provide for the current milestone. This establishes the behavioral scope for the milestone — each node's contract is explicitly defined before implementation begins.
 
-This skill implements **explicit capability layers** from the stable-topology, evolving-contract model:
+This skill defines per-node capability requirements:
 - Architecture topology is fixed (all nodes exist)
 - Each milestone defines which capabilities each node must provide
 - Scope is behavioral, not structural

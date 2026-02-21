@@ -32,8 +32,6 @@ If no node-name provided, find an eligible prepared node automatically.
 | `prepared` | Skeleton + failing tests created |
 | `implemented` | Logic implemented and tests passing |
 
-Note: The stable-topology model uses these states only. No deferred/stubbed states exist.
-
 ## Workflow
 
 Follow this process in order:

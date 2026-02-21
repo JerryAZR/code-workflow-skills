@@ -300,7 +300,7 @@ After bootstrapping the project:
 ### On Success
 - The project compiles and runs without errors
 - The placeholder test passes
-- **Action:** Invoke the `root-architect` skill to define the system architecture
+- **Action:** Invoke the `arch-init` skill to define the system architecture
 
 ### On Failure
 - **Logic bugs or syntax errors:**
