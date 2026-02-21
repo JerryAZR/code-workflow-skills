@@ -87,53 +87,16 @@ Depending on the project type, verify one of:
 
 ### Run Verification
 
-Execute the appropriate verification based on project type:
+Execute verification based on project type:
 
-**For Libraries:**
-- Verify the library can be imported
-- Verify public API is accessible
-
-```bash
-# Python library
-python -c "import src; print('Import OK')"
-
-# Node.js library
-node -e "require('./src'); console.log('OK')"
-```
-
-**For CLI Tools:**
-- Verify CLI command is invokable
-- Verify help/usage works
-
-```bash
-# Python CLI
-python -m <module> --help
-
-# Node.js CLI
-node ./src/cli.js --help
-
-# Installed CLI
-<command> --help
-```
-
-**For GUI Applications:**
-- Verify GUI window can be created (even if empty)
-- Verify application starts without crash
-
-```bash
-# Python (Tkinter, PyQt, etc.)
-python -c "import tkinter; tkinter.Tk().destroy()"
-
-# Electron
-ls dist/*.exe || ls build/*.exe
-
-# Check for build output
-ls <dist-folder>/
-```
+| Type | Command |
+|------|---------|
+| Library | `python -c "import src"` or `node -e "require('./src')"` |
+| CLI | `<command> --help` |
+| GUI | Run built executable |
 
 **Error Handling:**
-- If no runnable product exists and milestone requires one, report: "No runnable product found. Complete implementation before wrap-up."
-- If verification fails for any project type, report the specific failure
+- If no runnable product exists, report: "No runnable product found. Complete implementation before wrap-up."
 
 ---
 
@@ -186,30 +149,18 @@ Read the milestone scope from `milestones/MILESTONES.md` to list what features w
 
 Show the user:
 
-```markdown
+```
 ## Manual Verification Checklist
 
-### How to Start the App
-
-```
+### How to Start
 [command to run]
-```
 
 ### Features to Verify
-
-- [ ] Feature 1: Description
-- [ ] Feature 2: Description
-- [ ] ...
-
-### Instructions
-
-1. Start the application using the command above
-2. Manually test each feature in the checklist
-3. Mark each feature as verified or note any issues
-4. Report back when verification is complete
+- [ ] Feature 1
+- [ ] Feature 2
 ```
 
-Wait for the user to complete manual verification before proceeding.
+Wait for user to complete verification before proceeding.
 
 **If user reports issues:**
 - Do NOT proceed to document achievements
@@ -234,32 +185,12 @@ Append to the current milestone:
 **Completed:** [date]
 **Status:** complete
 
-#### Achievements
-- [List specific features completed]
-- [List architecture nodes implemented]
-- [List any notable improvements]
+**Achievements:**
+- [Features completed]
+- [Nodes implemented]
 
-#### Known Limitations
-- [Any known issues]
-- [Technical debt notes]
-
-#### Verification
-
-**Project Type:** [library/cli/gui/web/API]
-
-**Runnable:** [yes/no]
-- [Library imports successfully]
-- [CLI command works]
-- [GUI window appears]
-
-**Tests:** [yes/no]
-- [Unit tests pass]
-- [Integration tests pass]
-
-**Documentation:** [yes/no]
-- [README updated]
-- [API docs updated]
-- [Usage examples added]
+**Known Limitations:**
+- [Known issues]
 ```
 
 ---
@@ -301,20 +232,8 @@ After completing a milestone:
 
 ## Constraints
 
-### What This Skill Does NOT Do
-
-- Implement incomplete features
-- Fix failing tests
-- Refactor code
-- Re-architect nodes
-- Decide milestone scope (that's plan-milestones' job)
-
-### What This Skill Does
-
-- Verify completion status
-- Document achievements
-- Transition milestone states
-- Report blockers
+- **Does NOT**: Implement features, fix tests, refactor, re-architect, decide scope
+- **Does**: Verify completion, document achievements, transition states, report blockers
 
 ---
 
@@ -334,16 +253,6 @@ After completing a milestone:
 
 ## Next Steps
 
-After milestone wrap-up:
-
-### If More Milestones Remain
-- **Define contracts**: Run `milestone-init` to derive node capabilities for next milestone
-- **Implement**: Run `node-prep` and `node-build` for each node
-
-### If All Complete
-- **Celebrate**: Project milestone completion
-- **Review**: Run full test suite and verification
-
-### If Blocked
-- **Continue implementation**: Use node-build to complete remaining nodes
-- **Adjust scope**: Use plan-milestones to update milestone definitions
+- **More milestones**: Run `milestone-init` → `node-prep` → `node-build`
+- **All complete**: Run full test suite
+- **Blocked**: Continue implementation or adjust scope with `plan-milestones`

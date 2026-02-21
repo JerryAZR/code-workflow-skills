@@ -117,10 +117,10 @@ Create `milestones/MILESTONES.md` (create `milestones/` directory if it doesn't 
 - No advanced features
 - Basic happy path only
 
-### Success Criteria
-- [ ] System compiles and runs
-- [ ] Core flow works end-to-end
-- [ ] Basic error handling
+### Success Criteria (User-Observable)
+- [ ] App starts / library imports / CLI runs
+- [ ] Features in scope are usable
+- [ ] User can verify each feature works manually
 
 ---
 
@@ -138,10 +138,10 @@ Create `milestones/MILESTONES.md` (create `milestones/` directory if it doesn't 
 - Error handling for common cases
 - Basic validation
 
-### Success Criteria
-- [ ] Core features functional
+### Success Criteria (User-Observable)
+- [ ] Core features are usable
 - [ ] Users can accomplish main tasks
-- [ ] Basic error handling works
+- [ ] User can verify features work manually
 
 ---
 
@@ -159,10 +159,10 @@ Create `milestones/MILESTONES.md` (create `milestones/` directory if it doesn't 
 - Performance optimization
 - Enhanced user experience
 
-### Success Criteria
-- [ ] Enhanced features work
-- [ ] Performance targets met
-- [ ] User experience improved
+### Success Criteria (User-Observable)
+- [ ] Enhanced features are usable
+- [ ] Performance improvements are observable
+- [ ] User can verify improvements manually
 ```
 
 ## Constraints
@@ -184,6 +184,7 @@ Create `milestones/MILESTONES.md` (create `milestones/` directory if it doesn't 
 - [ ] Milestone 1 is the skeleton
 - [ ] Ordering respects dependencies
 - [ ] milestones/MILESTONES.md created
+- [ ] Each milestone has user-observable success criteria
 
 ## Next Steps
 

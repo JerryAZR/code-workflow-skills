@@ -89,6 +89,8 @@ For each node, analyze:
 3. What interfaces must this node expose?
 4. What are its integration points?
 
+**Note:** Each capability must contribute to user-observable deliverables (features the user can run/use and verify manually). If a capability cannot be traced to a user-observable feature, reconsider its necessity for this milestone.
+
 ### Output Format
 
 Create per-node capability documents at `milestones/{name}/nodes/{NodePath}.md`:
@@ -239,6 +241,7 @@ Capabilities.md defines **what the node MUST DO** for this milestone:
 - [ ] All features extracted from milestones/MILESTONES.md
 - [ ] All nodes gathered from ARCH_SUMMARY.md
 - [ ] Each node has documented capabilities
+- [ ] Capabilities contribute to user-observable deliverables
 - [ ] Node states updated to "planned" for contract expansion
 - [ ] Capabilities overview created at milestones/{index}-{name}/capabilities.md
 - [ ] Per-node capabilities created at milestones/{index}-{name}/nodes/{NodeName}.md
