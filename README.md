@@ -1,4 +1,4 @@
-# Code Agent Toolkit
+# arch-kit
 
 > A structural, frontier-driven workflow for building large software systems with AI agents — without collapsing into linear context overload.
 

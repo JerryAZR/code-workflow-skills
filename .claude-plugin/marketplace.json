@@ -1,0 +1,16 @@
+{
+  "name": "arch-kit",
+  "owner": {
+    "name": "Jerry"
+  },
+  "metadata": {
+    "description": "Two-tier architectural model skills for software development with TDD discipline"
+  },
+  "plugins": [
+    {
+      "name": "arch-kit",
+      "source": "./",
+      "description": "Two-tier architectural model skills for software development with TDD discipline"
+    }
+  ]
+}

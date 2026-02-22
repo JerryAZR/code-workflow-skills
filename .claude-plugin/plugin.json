@@ -1,0 +1,15 @@
+{
+  "name": "arch-kit",
+  "version": "1.0.0",
+  "description": "Two-tier architectural model skills for software development with TDD discipline",
+  "author": {
+    "name": "Jerry",
+    "url": "https://github.com/jerry/arch-kit"
+  },
+  "homepage": "https://github.com/jerry/arch-kit",
+  "repository": "https://github.com/jerry/arch-kit",
+  "license": "MIT",
+  "keywords": ["architecture", "tdd", "skills", "workflow"],
+  "skills": "./skills/",
+  "commands": "./commands/"
+}
